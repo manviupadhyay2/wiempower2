@@ -10,9 +10,9 @@ import Theme from './components/Theme';
 import SpeakerSection from './components/Speaker';
 import Judges from './components/Judges';
 import Faq from './components/Faq';
-import Footer from '@/sections/Footer';
 import BackToTop from './components/BackToTop';
 import Loading from './Loading';
+import Footer from './components/Footer';
 
 const Wiempower = () => {
     const [loading, setLoading] = useState(true);
@@ -41,7 +41,7 @@ const Wiempower = () => {
                     <SpeakerSection />
                     <Judges />
                     <Faq />
-                    <Footer />
+                    <Footer/>
                     <BackToTop />
                 </>
             )}
