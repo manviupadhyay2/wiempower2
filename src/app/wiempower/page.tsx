@@ -43,7 +43,7 @@ const Wiempower = () => {
                     <Judges />
                     <Sponsors/>
                     <Faq />
-                    <Footer/>
+                    {/* <Footer/> */}
                     <BackToTop />
                 </>
             )}
