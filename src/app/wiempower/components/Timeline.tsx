@@ -1,12 +1,15 @@
 import React, { useEffect, useRef, useState } from "react";
 import { motion, useScroll } from "framer-motion";
+import { FaCalendarAlt } from "react-icons/fa";  // Icons
 
+// Declare EventItem interface
 interface EventItem {
     date: string;
     title: string;
     description: string;
 }
 
+// Sample event data
 const EVENTS: EventItem[] = [
     {
         date: "31st December 2024",
@@ -40,6 +43,7 @@ const EVENTS: EventItem[] = [
     },
 ];
 
+// TimelineItem component for each event
 const TimelineItem = ({ event, index, progress, isLargeScreen }: {
     event: EventItem;
     index: number;
@@ -65,41 +69,36 @@ const TimelineItem = ({ event, index, progress, isLargeScreen }: {
         <motion.div
             className={`relative flex flex-col ${isLargeScreen ? `lg:flex-row ${!isLeft && 'lg:flex-row-reverse'}` : ''} items-start mb-12`}
             initial={{ opacity: 0, x: isLargeScreen ? (isLeft ? -50 : 50) : -30 }}
-            animate={{
-                opacity: shouldShow ? 1 : 0,
-                x: shouldShow ? 0 : (isLargeScreen ? (isLeft ? -50 : 50) : -30)
-            }}
+            animate={{ opacity: shouldShow ? 1 : 0, x: shouldShow ? 0 : (isLargeScreen ? (isLeft ? -50 : 50) : -30) }}
             transition={{ duration: 0.7, ease: "easeOut" }}
         >
             {/* Circle indicator */}
             <motion.div
-                className={`absolute ${linePosition} w-4 h-4 rounded-full bg-blue-500 
-                           shadow-lg shadow-blue-500/50 z-10`}
+                className={`absolute ${linePosition} w-4 h-4 rounded-full bg-blue-500 shadow-lg shadow-blue-500/50 z-10`}
                 initial={{ scale: 0 }}
                 animate={{ scale: shouldShow ? 1 : 0 }}
                 transition={{ duration: 0.4 }}
             >
                 {shouldShow && (
-                    <div
-                        className="absolute w-8 h-8 bg-blue-500/20 rounded-full -left-2 -top-2 animate-ping"
-                        style={{ animationDuration: '3s' }}
-                    />
+                    <div className="absolute w-8 h-8 bg-blue-500/20 rounded-full -left-2 -top-2 animate-ping"
+                        style={{ animationDuration: '3s' }} />
                 )}
             </motion.div>
 
             <div className={contentClasses}>
-                <div className="p-4 sm:p-6 bg-gray-900/50 rounded-lg border border-purple-500/20 
+                <div className="p-4 sm:p-6 bg-gradient-to-br from-gray-900 via-black to-gray-950 rounded-lg border border-blue-500/20 
                              hover:border-purple-500/40 transition-colors duration-300
                              backdrop-blur-sm hover:backdrop-blur-lg
                              shadow-lg shadow-purple-500/10 hover:shadow-purple-500/20">
-                    <div className="text-purple-400 text-sm font-medium mb-2">
+                    {/* Highlighted date */}
+                    <div className="text-emerald-400 text-lg font-semibold mb-2">
                         {event.date}
                     </div>
-                    <h3 className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 
+                    <h3 className="text-xl sm:text-2xl font-bold text-transparent bg-gradient-to-r from-blue-400 to-purple-400 
                                  bg-clip-text text-transparent mb-2 sm:mb-3">
                         {event.title}
                     </h3>
-                    <p className="text-sm sm:text-base text-gray-300/80 leading-relaxed">
+                    <p className="text-sm sm:text-base text-gray-300 leading-relaxed">
                         {event.description}
                     </p>
                 </div>
@@ -108,6 +107,7 @@ const TimelineItem = ({ event, index, progress, isLargeScreen }: {
     );
 };
 
+// Main Timeline component
 const Timeline: React.FC = () => {
     const [isLargeScreen, setIsLargeScreen] = useState(false);
     const [progress, setProgress] = useState(0);
@@ -144,15 +144,12 @@ const Timeline: React.FC = () => {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8 }}
-                    className="mb-12 sm:mb-16"
+                    className="mb-12 sm:mb-16 text-center"
                 >
-                    <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-500 via-blue-400 to-purple-500 mb-4 sm:mb-6">
-                        Hackathon Schedule
+                    <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-500 via-blue-400 to-purple-500 mb-4 sm:mb-6 flex items-center justify-center space-x-2">
+                        <FaCalendarAlt className="text-3xl text-purple-400" />
+                        <span>Hackathon Schedule</span>
                     </h1>
-                    <p className="text-purple-300 opacity-80 text-base sm:text-lg max-w-2xl">
-                        Follow our carefully planned timeline to stay on track throughout the hackathon.
-                        Each phase is designed to help you develop and refine your innovative solutions.
-                    </p>
                 </motion.div>
 
                 <div ref={timelineRef} className="relative">
