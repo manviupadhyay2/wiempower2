@@ -7,14 +7,13 @@ import { SiX } from "react-icons/si";
 import { motion, AnimatePresence } from "framer-motion";
 import { Events, scrollSpy, scroller } from "react-scroll";
 import Image from "next/image";
-import router, { useRouter } from "next/router";
+import { useRouter } from "next/router";
 
 
 const iconSize = 24;
 
 const handleEmailClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
-    const router = useRouter();
     const emailTo = "igdtuieee@gmail.com";
     const ccEmail = "igdtuieee@gmail.com";
     const subject = encodeURIComponent("Contact from Website");
@@ -182,54 +181,43 @@ const Navbar = () => {
                                     >
                                         <div
                                             onClick={() => {
-                                                window.open('https://ieee-igdtuw.github.io/wie-website/index.html', '_blank'); // Opens in a new tab
+                                                window.open('https://ieee-igdtuw.github.io/wie-website/index.html', '_blank');
                                                 setIsSubBarOpen(false);
                                             }}
                                             className={`block px-4 py-2 cursor-pointer transition-all duration-500 hover:bg-[#a855f7] hover:text-white
-    ${activeSection === 'Wiempower-2024' ? 'bg-[#a855f7] text-white' : 'text-gray-200'}`}
+                                            ${activeSection === 'Wiempower-2024' ? 'bg-[#a855f7] text-white' : 'text-gray-200'}`}
                                         >
                                             WIEmpower 4.0
                                         </div>
                                         <div
                                             onClick={() => {
-                                                window.open('https://igdtuw19ieee.github.io/WIEmpower/colorlib.com/preview/theme/plataforma/index.html', '_blank'); // Opens in a new tab
+                                                window.open('https://igdtuw19ieee.github.io/WIEmpower/colorlib.com/preview/theme/plataforma/index.html', '_blank');
                                                 setIsSubBarOpen(false);
                                             }}
                                             className={`block px-4 py-2 cursor-pointer transition-all duration-500 hover:bg-[#a855f7] hover:text-white
-    ${activeSection === 'Wiempower-2024' ? 'bg-[#a855f7] text-white' : 'text-gray-200'}`}
+                                            ${activeSection === 'Wiempower-2024' ? 'bg-[#a855f7] text-white' : 'text-gray-200'}`}
                                         >
                                             WIEmpower 3.0
                                         </div>
                                         <div
                                             onClick={() => {
-                                                window.open('https://igdtuw19ieee.github.io/WIEmpower/colorlib.com/preview/theme/plataforma/about2.html', '_blank'); // Opens in a new tab
+                                                window.open('https://igdtuw19ieee.github.io/WIEmpower/colorlib.com/preview/theme/plataforma/about2.html', '_blank');
                                                 setIsSubBarOpen(false);
                                             }}
                                             className={`block px-4 py-2 cursor-pointer transition-all duration-500 hover:bg-[#a855f7] hover:text-white
-    ${activeSection === 'Wiempower-2024' ? 'bg-[#a855f7] text-white' : 'text-gray-200'}`}
+                                            ${activeSection === 'Wiempower-2024' ? 'bg-[#a855f7] text-white' : 'text-gray-200'}`}
                                         >
                                             WIEmpower 2.0
                                         </div>
                                         <div
                                             onClick={() => {
-                                                window.open('https://igdtuw19ieee.github.io/WIEmpower/colorlib.com/preview/theme/plataforma/about.html', '_blank'); // Opens in a new tab
+                                                window.open('https://igdtuw19ieee.github.io/WIEmpower/colorlib.com/preview/theme/plataforma/about.html', '_blank');
                                                 setIsSubBarOpen(false);
                                             }}
                                             className={`block px-4 py-2 cursor-pointer transition-all duration-500 hover:bg-[#a855f7] hover:text-white
-    ${activeSection === 'Wiempower-2024' ? 'bg-[#a855f7] text-white' : 'text-gray-200'}`}
+                                            ${activeSection === 'Wiempower-2024' ? 'bg-[#a855f7] text-white' : 'text-gray-200'}`}
                                         >
                                             WIEmpower 1.0
-                                        </div>
-
-                                        <div
-                                            onClick={() => {
-                                                handleCustomScroll('past-events');
-                                                setIsSubBarOpen(false);
-                                            }}
-                                            className={`block px-4 py-2 cursor-pointer transition-all duration-500 hover:bg-[#a855f7] hover:text-white
-                                                ${activeSection === 'past-events' ? 'bg-[#a855f7] text-white' : 'text-gray-200'}`}
-                                        >
-                                            Past Events
                                         </div>
                                     </motion.div>
                                 )}
@@ -237,147 +225,99 @@ const Navbar = () => {
                         </div>
 
                         <div
+                            onClick={() => handleCustomScroll('past-events')}
+                            className={navLinkClass('past-events')}
+                        >
+                            Past Events
+                        </div>
+                        <div
                             onClick={() => handleCustomScroll('team')}
                             className={navLinkClass('team')}
                         >
                             Team
                         </div>
-
-                        <div>
-                            <Link href="/wiempower" passHref>
-                                <button>
-                                    WIEmpower
-                                </button>
-                            </Link>
+                        <div
+                            onClick={() => handleCustomScroll('projects')}
+                            className={navLinkClass('projects')}
+                        >
+                            Projects
                         </div>
                         <div
                             onClick={() => handleCustomScroll('contact-us')}
                             className={navLinkClass('contact-us')}
                         >
-                            Contact
+                            Contact Us
                         </div>
                     </div>
                 </div>
 
-                {/* Social Media Icons for Desktop */}
-                <div className="hidden md:flex flex-row gap-5 items-center">
-                    {Socials.map((social) => (
-                        <a
-                            key={social.name}
-                            href={social.name === "Email" ? "#" : social.link}
-                            target={social.name === "Email" ? "_self" : "_blank"}
-                            rel="noopener noreferrer"
-                            onClick={social.onClick}
-                            className="flex items-center justify-center text-gray-200 hover:text-gray-300"
-                        >
-                            {social.icon}
-                        </a>
-                    ))}
-                </div>
-
-                {/* Mobile Menu Button (Hamburger) */}
-                <div
-                    onClick={toggleMenu}
-                    className={`md:hidden rounded-md p-2 ${isMenuOpen ? 'bg-[#a855f7]' : 'bg-transparent'} cursor-pointer`}
-                >
-                    {isMenuOpen ? (
-                        <SiX size={24} className="text-white" />
-                    ) : (
-                        <FaBars size={24} className="text-white" />
-                    )}
-                </div>
-            </div>
-
-            {/* Mobile Menu */}
-            <AnimatePresence>
-                {isMenuOpen && (
-                    <motion.div
-                        initial={{ opacity: 0, y: -10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -10 }}
-                        transition={{ duration: 0.4, ease: "easeInOut" }}
-                        className="md:hidden absolute left-0 right-0 top-[65px] bg-[#030014] border border-[rgba(112,66,248,0.38)] rounded-md shadow-lg p-4 z-50"
+                <div className="md:hidden">
+                    <div
+                        onClick={toggleMenu}
+                        className={`w-[30px] h-[30px] bg-[#222222] rounded-md ${isMenuOpen ? 'block' : ''}`}
                     >
-                        <div className="flex flex-col gap-4">
-                            <div onClick={() => handleCustomScroll('about')} className="text-gray-200 cursor-pointer hover:text-[#a855f7]">
+                        {isMenuOpen ? <SiX size={iconSize} color="white" /> : <FaBars size={iconSize} color="white" />}
+                    </div>
+                </div>
+
+                <AnimatePresence>
+                    {isMenuOpen && (
+                        <motion.div
+                            initial={{ opacity: 0, x: 100 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            exit={{ opacity: 0, x: 100 }}
+                            transition={{ duration: 0.5 }}
+                            className="absolute top-0 right-0 w-[200px] bg-[#2a0e61] rounded-lg px-[10px] py-[20px]"
+                        >
+                            <div
+                                onClick={() => {
+                                    handleCustomScroll("about");
+                                    setIsMenuOpen(false);
+                                }}
+                                className="mb-5 cursor-pointer text-white hover:text-[#a855f7] transition-all"
+                            >
                                 About
                             </div>
-                            <div onClick={toggleSubBar} className="text-gray-200 cursor-pointer hover:text-[#a855f7]">
-                                Events
+                            <div
+                                onClick={() => {
+                                    handleCustomScroll("Wiempower-2024");
+                                    setIsMenuOpen(false);
+                                }}
+                                className="mb-5 cursor-pointer text-white hover:text-[#a855f7] transition-all"
+                            >
+                                WIEmpower 4.0
                             </div>
-                            {isSubBarOpen && (
-                                <div className="flex flex-col pl-4">
-                                    <div
-                                        onClick={() => {
-                                            window.open('https://ieee-igdtuw.github.io/wie-website/index.html', '_blank'); // Opens in a new tab
-                                            setIsSubBarOpen(false);
-                                        }}
-                                        className="text-gray-200 cursor-pointer hover:text-[#a855f7]"
-                                    >
-                                        WIEmpower 4.0
-                                    </div>
-                                    <div
-                                        onClick={() => {
-                                            window.open('https://igdtuw19ieee.github.io/WIEmpower/colorlib.com/preview/theme/plataforma/index.html'); // Opens in a new tab
-                                            setIsSubBarOpen(false);
-                                        }}
-                                        className="text-gray-200 cursor-pointer hover:text-[#a855f7]"
-                                    >
-                                        WIEmpower 3.0
-                                    </div>
-                                    <div
-                                        onClick={() => {
-                                            window.open('https://igdtuw19ieee.github.io/WIEmpower/colorlib.com/preview/theme/plataforma/about2.html'); // Opens in a new tab
-                                            setIsSubBarOpen(false);
-                                        }}
-                                        className="text-gray-200 cursor-pointer hover:text-[#a855f7]"
-                                    >
-                                        WIEmpower 2.0
-                                    </div>
-                                    <div
-                                        onClick={() => {
-                                            window.open('https://igdtuw19ieee.github.io/WIEmpower/colorlib.com/preview/theme/plataforma/about.html'); // Opens in a new tab
-                                            setIsSubBarOpen(false);
-                                        }}
-                                        className="text-gray-200 cursor-pointer hover:text-[#a855f7]"
-                                    >
-                                        WIEmpower 1.0
-                                    </div>
-                                    <div
-                                        onClick={() => {
-                                            handleCustomScroll('past-events');
-                                            setIsSubBarOpen(false);
-                                        }}
-                                        className="text-gray-200 cursor-pointer hover:text-[#a855f7]"
-                                    >
-                                        Past Events
-                                    </div>
-                                </div>
-                            )}
-                            <div onClick={() => handleCustomScroll('team')} className="text-gray-200 cursor-pointer hover:text-[#a855f7]">
+                            <div
+                                onClick={() => {
+                                    handleCustomScroll("team");
+                                    setIsMenuOpen(false);
+                                }}
+                                className="mb-5 cursor-pointer text-white hover:text-[#a855f7] transition-all"
+                            >
                                 Team
                             </div>
-                            <div onClick={() => handleCustomScroll('contact-us')} className="text-gray-200 cursor-pointer hover:text-[#a855f7]">
-                                Contact
+                            <div
+                                onClick={() => {
+                                    handleCustomScroll("projects");
+                                    setIsMenuOpen(false);
+                                }}
+                                className="mb-5 cursor-pointer text-white hover:text-[#a855f7] transition-all"
+                            >
+                                Projects
                             </div>
-                            <div className="flex flex-row gap-5 items-center justify-center mt-4">
-                                {Socials.map((social) => (
-                                    <a
-                                        key={social.name}
-                                        href={social.name === "Email" ? "#" : social.link}
-                                        target={social.name === "Email" ? "_self" : "_blank"}
-                                        rel="noopener noreferrer"
-                                        onClick={social.onClick}
-                                        className="flex items-center justify-center text-gray-200 hover:text-gray-300"
-                                    >
-                                        {social.icon}
-                                    </a>
-                                ))}
+                            <div
+                                onClick={() => {
+                                    handleCustomScroll("contact-us");
+                                    setIsMenuOpen(false);
+                                }}
+                                className="mb-5 cursor-pointer text-white hover:text-[#a855f7] transition-all"
+                            >
+                                Contact Us
                             </div>
-                        </div>
-                    </motion.div>
-                )}
-            </AnimatePresence>
+                        </motion.div>
+                    )}
+                </AnimatePresence>
+            </div>
         </div>
     );
 };

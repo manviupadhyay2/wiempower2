@@ -14,6 +14,7 @@ import BackToTop from './components/BackToTop';
 import Loading from './Loading';
 import Footer from './components/Footer';
 import Sponsors from './components/Sponsors';
+import Events from './components/Events';
 
 const Wiempower = () => {
     const [loading, setLoading] = useState(true);
@@ -30,20 +31,18 @@ const Wiempower = () => {
                 <Loading />
             ) : (
                 <>
-                    <div id="cursor"></div>
-                    <div id="cursor-blur"></div>
-
                     <Header />
                     <Hero />
                     <About />
                     <PastEvents />
                     <Timeline />
                     <Theme />
+                    <Events />
                     <SpeakerSection />
                     <Judges />
-                    <Sponsors/>
+                    <Sponsors />
                     <Faq />
-                    <Footer/>
+                    <Footer />
                     <BackToTop />
                 </>
             )}

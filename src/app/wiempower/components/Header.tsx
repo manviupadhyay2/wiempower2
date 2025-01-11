@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import React, { useState, useEffect } from "react";
-import { FaLinkedin, FaInstagram, FaBars, FaEnvelope } from "react-icons/fa";
+import { FaLinkedin, FaInstagram, FaBars, FaEnvelope, FaTimes } from "react-icons/fa";
 import { SiX } from "react-icons/si";
 import { motion, AnimatePresence } from "framer-motion";
 import { Events, scrollSpy, scroller } from "react-scroll";
@@ -59,6 +59,10 @@ const Navbar = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [activeSection, setActiveSection] = useState("home");
 
+    const toggleMenu = () => {
+        setIsMenuOpen(prev => !prev);
+    };
+
     const scrollConfig = {
         spy: true,
         smooth: true,
@@ -72,6 +76,7 @@ const Navbar = () => {
     const handleCustomScroll = (targetId: string) => {
         scroller.scrollTo(targetId, scrollConfig);
         setActiveSection(targetId);
+        setIsMenuOpen(false); // Close menu after clicking
     };
 
     useEffect(() => {
@@ -86,7 +91,7 @@ const Navbar = () => {
             }
 
             timeoutId = setTimeout(() => {
-                const sections = ['home', 'about', 'timeline', 'registration', 'contact'];
+                const sections = ['home', 'about', 'events', 'timeline', 'registration', 'contact'];
                 const viewportHeight = window.innerHeight;
 
                 const currentSection = sections.find(section => {
@@ -118,10 +123,6 @@ const Navbar = () => {
         };
     }, []);
 
-    const toggleMenu = () => {
-        setIsMenuOpen(!isMenuOpen);
-    };
-
     const navLinkClass = (section: string) => `
         cursor-pointer 
         transition-all 
@@ -130,11 +131,15 @@ const Navbar = () => {
         ${activeSection === section ? 'text-[#a855f7]' : 'text-gray-200'}
     `;
 
+    const handleRegistrationClick = () => {
+        window.open('https://example-registration-link.com', '_blank');
+    };
+
     return (
         <div className="w-full h-[65px] fixed top-0 shadow-lg shadow-[#2A0E61]/50 bg-[#03001417] backdrop-blur-md z-50 px-10">
             <div className="w-full h-full flex flex-row items-center justify-between m-auto px-[10px]">
                 <div
-                    onClick={() => window.location.href = '/'} // Redirect to homepage
+                    onClick={() => window.location.href = '/'}
                     className="h-auto w-auto flex flex-row items-center justify-center cursor-pointer"
                 >
                     <Image
@@ -147,9 +152,9 @@ const Navbar = () => {
                 </div>
 
                 <div className="hidden md:flex flex-grow items-center justify-center">
-                    <div className="flex items-center justify-between w-[600px] h-auto border border-[rgba(112,66,248,0.38)] bg-[#0300145e] px-[20px] py-[10px] rounded-full">
+                    <div className="flex items-center justify-between w-[700px] h-auto border border-[rgba(112,66,248,0.38)] bg-[#0300145e] px-[20px] py-[10px] rounded-full">
                         <div
-                            onClick={() => window.location.href = '/'} // Redirect to homepage
+                            onClick={() => window.location.href = '/'}
                             className={navLinkClass('home')}
                         >
                             IEEE IGDTUW
@@ -163,6 +168,13 @@ const Navbar = () => {
                         </div>
 
                         <div
+                            onClick={() => handleCustomScroll('events')}
+                            className={navLinkClass('events')}
+                        >
+                            Events
+                        </div>
+
+                        <div
                             onClick={() => handleCustomScroll('timeline')}
                             className={navLinkClass('timeline')}
                         >
@@ -170,7 +182,7 @@ const Navbar = () => {
                         </div>
 
                         <div
-                            onClick={() => handleCustomScroll('registration')}
+                            onClick={handleRegistrationClick}
                             className={navLinkClass('registration')}
                         >
                             Registration
@@ -202,10 +214,10 @@ const Navbar = () => {
 
                 <div
                     onClick={toggleMenu}
-                    className={`md:hidden rounded-md p-2 ${isMenuOpen ? 'bg-[#a855f7]' : 'bg-transparent'} cursor-pointer`}
+                    className={`md:hidden rounded-md p-2 ${isMenuOpen ? 'bg-[#a855f7]' : 'bg-transparent'} cursor-pointer transition-colors duration-300`}
                 >
                     {isMenuOpen ? (
-                        <SiX size={24} className="text-white" />
+                        <FaTimes size={24} className="text-white" />
                     ) : (
                         <FaBars size={24} className="text-white" />
                     )}
@@ -215,29 +227,74 @@ const Navbar = () => {
             <AnimatePresence>
                 {isMenuOpen && (
                     <motion.div
-                        initial={{ opacity: 0, y: -10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -10 }}
-                        transition={{ duration: 0.4, ease: "easeInOut" }}
-                        className="md:hidden absolute left-0 right-0 top-[65px] bg-[#030014] border border-[rgba(112,66,248,0.38)] rounded-md shadow-lg p-4 z-50"
+                        initial={{ opacity: 0, height: 0 }}
+                        animate={{ opacity: 1, height: 'auto' }}
+                        exit={{ opacity: 0, height: 0 }}
+                        transition={{
+                            duration: 0.3,
+                            ease: [0.4, 0, 0.2, 1],
+                            height: {
+                                duration: 0.4
+                            }
+                        }}
+                        className="md:hidden absolute left-0 right-0 top-[65px] bg-[#030014] border border-[rgba(112,66,248,0.38)] rounded-b-md shadow-lg overflow-hidden"
                     >
-                        <div className="flex flex-col gap-4">
-                            <div onClick={() => window.location.href = '/'} className="text-gray-200 cursor-pointer hover:text-[#a855f7]">
-                                IEEE IGDTUW
+                        <motion.div
+                            className="flex flex-col gap-4 p-4"
+                            initial="closed"
+                            animate="open"
+                            variants={{
+                                open: {
+                                    transition: {
+                                        staggerChildren: 0.1
+                                    }
+                                },
+                                closed: {
+                                    transition: {
+                                        staggerChildren: 0.05,
+                                        staggerDirection: -1
+                                    }
+                                }
+                            }}
+                        >
+                            {[
+                                { text: 'IEEE IGDTUW', action: () => window.location.href = '/' },
+                                { text: 'About', action: () => handleCustomScroll('about') },
+                                { text: 'Events', action: () => handleCustomScroll('events') },
+                                { text: 'Timeline', action: () => handleCustomScroll('timeline') },
+                                { text: 'Registration', action: handleRegistrationClick },
+                                { text: 'Contact', action: () => handleCustomScroll('contact') }
+                            ].map((item, index) => (
+                                <motion.div
+                                    key={index}
+                                    variants={{
+                                        open: { opacity: 1, y: 0 },
+                                        closed: { opacity: 0, y: -20 }
+                                    }}
+                                    transition={{ duration: 0.3, ease: "easeOut" }}
+                                    onClick={item.action}
+                                    className="text-gray-200 cursor-pointer hover:text-[#a855f7] transition-colors duration-300"
+                                >
+                                    {item.text}
+                                </motion.div>
+                            ))}
+
+                            {/* Socials inside hamburger */}
+                            <div className="flex gap-4 pt-4">
+                                {Socials.map((social) => (
+                                    <a
+                                        key={social.name}
+                                        href={social.name === "Email" ? "#" : social.link}
+                                        target={social.name === "Email" ? "_self" : "_blank"}
+                                        rel="noopener noreferrer"
+                                        onClick={social.onClick}
+                                        className="flex items-center justify-center text-gray-200 hover:text-gray-300"
+                                    >
+                                        {social.icon}
+                                    </a>
+                                ))}
                             </div>
-                            <div onClick={() => handleCustomScroll('about')} className="text-gray-200 cursor-pointer hover:text-[#a855f7]">
-                                About
-                            </div>
-                            <div onClick={() => handleCustomScroll('timeline')} className="text-gray-200 cursor-pointer hover:text-[#a855f7]">
-                                Timeline
-                            </div>
-                            <div onClick={() => handleCustomScroll('registration')} className="text-gray-200 cursor-pointer hover:text-[#a855f7]">
-                                Registration
-                            </div>
-                            <div onClick={() => handleCustomScroll('contact')} className="text-gray-200 cursor-pointer hover:text-[#a855f7]">
-                                Contact
-                            </div>
-                        </div>
+                        </motion.div>
                     </motion.div>
                 )}
             </AnimatePresence>

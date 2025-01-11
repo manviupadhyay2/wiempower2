@@ -5,126 +5,136 @@ import { motion } from "framer-motion";
 import bgImage from "@/assets/HeroPagePic/bg.jpg";
 
 const styles = `
-  @font-face {
-    font-family: 'NeueMachina';
-    src: url('/fonts/NeueMachina-Ultrabold.woff2') format('woff2');
-  }
-
   .hero-title {
-    font-family: 'NeueMachina', sans-serif;
-    letter-spacing: 0.25em;
-    background: linear-gradient(to right, #ff69b4, #4b0082, #9400d3);
+    background: linear-gradient(to right, #60a5fa, #7c3aed, #f472b6, #2563eb);
     -webkit-background-clip: text;
     background-clip: text;
-    color: transparent;
     -webkit-text-stroke: 2px rgba(255, 255, 255, 0.3);
-    text-shadow: 
-      0 0 16px rgba(255, 105, 180, 0.4),
-      0 0 32px rgba(148, 0, 211, 0.24),
-      0 0 48px rgba(75, 0, 130, 0.16);
-    animation: glow 3s ease-in-out infinite alternate;
+    user-select: none;
   }
 
-  @keyframes glow {
-    from {
-      text-shadow: 
-        0 0 16px rgba(255, 105, 180, 0.4),
-        0 0 32px rgba(148, 0, 211, 0.24),
-        0 0 48px rgba(75, 0, 130, 0.16);
-    }
-    to {
-      text-shadow: 
-        0 0 24px rgba(255, 105, 180, 0.64),
-        0 0 40px rgba(148, 0, 211, 0.4),
-        0 0 56px rgba(75, 0, 130, 0.24);
-    }
+  .dot-pattern {
+    background-image: radial-gradient(circle at 1px 1px, rgba(255, 255, 255, 0.15) 1px, transparent 0);
+    background-size: 18px 18px;
+    animation: moveDots 10s linear infinite;
   }
 
-  .dot-overlay {
-    background-image: radial-gradient(circle at 1px 1px, rgba(255, 255, 255, 0.1) 1px, transparent 0);
-    background-size: 30px 30px;
+  @keyframes moveDots {
+    0% { background-position: 0 0; }
+    100% { background-position: 18px 18px; }
+  }
+
+  .unselectable {
+    user-select: none;
+  }
+
+  @media (max-width: 640px) {
+    .hero-title {
+      -webkit-text-stroke: 1px rgba(255, 255, 255, 0.3);
+    }
   }
 `;
 
 export default function Hero() {
   return (
-    <main className="w-full h-screen relative overflow-hidden">
+    <motion.main
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 1 }}
+      className="relative w-full min-h-screen overflow-hidden bg-black"
+    >
       <style>{styles}</style>
-      <div
-        className="absolute inset-0 bg-cover bg-center"
-        style={{ backgroundImage: `url(${bgImage.src})` }}
-      >
-        <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/70 to-purple-900/20" />
-        <div className="absolute inset-0 dot-overlay" />
+
+      {/* Background Image with Overlay */}
+      <div className="absolute inset-0">
+        <Image
+          src={bgImage}
+          alt="Background"
+          fill
+          className="object-cover object-center opacity-50"
+          priority
+        />
+        <div className="absolute inset-0 bg-black/30" />
+        <div className="absolute inset-0 dot-pattern" />
       </div>
 
-      <div className="relative h-full z-10 container mx-auto px-6">
-        <div className="flex flex-col items-center justify-center h-full text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1 }}
-            className="space-y-12 max-w-7xl w-full"
-          >
-            <h1 className="hero-title text-5xl md:text-7xl font-extrabold mb-8">
-              WIEMPOWER
-            </h1>
-            
-            <motion.p
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.5 }}
-              className="text-xl md:text-2xl font-bold tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500"
-            >
-              INSPIRE | CREATE | INNOVATE
-            </motion.p>
-            
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.98 }}
-              className="px-12 py-4 mt-8 bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 
-                text-white text-lg font-bold rounded-full 
-                shadow-[0_0_15px_rgba(236,72,153,0.25)]
-                hover:shadow-[0_0_25px_rgba(236,72,153,0.35)]
-                transition-all duration-300"
-            >
-              REGISTER NOW
-            </motion.button>
-
+      {/* Content */}
+      <div className="relative h-full z-10">
+        <div className="container mx-auto px-4 h-full pt-24 pb-12">
+          <div className="flex flex-col items-center justify-center min-h-[calc(100vh-6rem)] text-center">
             <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.8 }}
-              className="space-y-6"
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1 }}
+              className="space-y-8 md:space-y-12 w-full max-w-6xl"
             >
-              <div className="space-y-3">
-                <motion.p
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: 1 }}
-                  className="text-lg md:text-xl text-gray-200 leading-relaxed mx-auto
-                    bg-black/20 backdrop-blur-sm py-4 px-12 rounded-2xl border border-white/5
-                    max-w-6xl w-full"
-                >
-                  WIEMPOWER – Where Ideas Ignite and Innovation Thrives. A platform 
-                  that empowers women to address real-life challenges head-on and 
-                  showcase their creativity and ingenuity.
-                </motion.p>
+              {/* Main Title */}
+              <motion.h1
+                initial={{ scale: 0.9, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                transition={{ duration: 1.2 }}
+                className="hero-title text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-extrabold tracking-wide text-transparent 
+                         drop-shadow-[0_0_25px_rgba(96,165,250,0.5)]"
+              >
+                WIEMPOWER
+              </motion.h1>
 
-                <motion.p
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: 1.2 }}
-                  className="text-gray-400 text-base max-w-5xl mx-auto"
+              {/* Tagline */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.5 }}
+                className="space-y-6 md:space-y-8"
+              >
+                <p className="text-lg sm:text-xl md:text-3xl font-bold tracking-[0.2em] whitespace-nowrap sm:whitespace-normal">
+                  <span className="text-blue-400">INSPIRE</span>
+                  <span className="text-white mx-2 md:mx-3">•</span>
+                  <span className="text-violet-400">CREATE</span>
+                  <span className="text-white mx-2 md:mx-3">•</span>
+                  <span className="text-indigo-400">INNOVATE</span>
+                </p>
+
+                {/* Register Button */}
+                <motion.button
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  className="px-8 md:px-12 py-3 md:py-4 bg-gradient-to-r from-blue-500 via-pink-400 to-indigo-500
+                           text-white text-lg md:text-xl font-bold rounded-lg
+                           shadow-md hover:shadow-lg transition-all duration-300 border border-white/30"
                 >
-                  Production and Industrial Engineering Society in collaboration with 
-                  Institution's Innovation Council, IEEE IGDTUW
-                </motion.p>
-              </div>
+                  REGISTER NOW
+                </motion.button>
+
+                {/* Description */}
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.8 }}
+                  className="space-y-6 md:space-y-8 mt-6 md:mt-8"
+                >
+                  <div className="bg-black/40 backdrop-blur-md rounded-2xl md:rounded-3xl p-4 md:p-8 max-w-4xl mx-auto
+                               border border-white/10 shadow-lg"
+                  >
+                    <p className="text-base sm:text-lg md:text-2xl text-white/90 leading-relaxed">
+                      <span className="font-semibold bg-gradient-to-r from-blue-400 to-violet-400 bg-clip-text text-transparent">
+                        WIEMPOWER
+                      </span> – Where Ideas Ignite and Innovation Thrives. A platform
+                      that empowers women to address real-life challenges head-on and
+                      showcase their creativity and ingenuity.
+                    </p>
+                  </div>
+
+                  {/* Organization Names */}
+                  <p className="text-gray-300 text-sm md:text-lg font-light tracking-wide max-w-4xl mx-auto px-4">
+                    Institute of Electrical and Electronics Engineers,
+                    Indira Gandhi Delhi Technical University for Women
+                  </p>
+                </motion.div>
+              </motion.div>
             </motion.div>
-          </motion.div>
+          </div>
         </div>
       </div>
-    </main>
+    </motion.main>
   );
 }

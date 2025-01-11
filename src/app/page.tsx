@@ -1,4 +1,5 @@
 'use client';
+
 import React, { useEffect, useState } from 'react';
 import Header from "@/sections/Header";
 import Footer from '@/sections/Footer';
@@ -10,53 +11,32 @@ import Team from '@/sections/Team';
 import AimAndMission from '@/sections/AimAndMission';
 import Events from '@/sections/Events';
 import Loading from '@/app/Loading';
+import PopUp from '@/sections/PopUp';
 
 const Home = () => {
   const [isLoading, setIsLoading] = useState(true);
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
 
   useEffect(() => {
+    // Handle loading state
     setTimeout(() => {
       setIsLoading(false);
+      // Show popup after loading is complete
+      setIsPopupOpen(true);
     }, 3000);
 
-    const crsr = document.getElementById("cursor");
-    const blur = document.getElementById("cursor-blur");
-
-    const throttle = <T extends unknown[]>(func: (...args: T) => void, limit: number) => {
-      let lastFunc: ReturnType<typeof setTimeout>;
-      let lastRan: number;
-
-      return (...args: T) => {
-        if (!lastRan) {
-          func(...args);
-          lastRan = Date.now();
-        } else {
-          clearTimeout(lastFunc);
-          lastFunc = setTimeout(() => {
-            if (Date.now() - lastRan >= limit) {
-              func(...args);
-              lastRan = Date.now();
-            }
-          }, limit - (Date.now() - lastRan));
-        }
-      };
-    };
-
-    const handleMouseMove = (event: MouseEvent) => {
-      if (crsr && blur) {
-        crsr.style.transform = `translate(${event.clientX}px, ${event.clientY}px)`;
-        blur.style.transform = `translate(${event.clientX - 150}px, ${event.clientY - 150}px)`;
-      }
-    };
-
-    const throttledMouseMove = throttle(handleMouseMove, 50);
-
-    document.addEventListener("mousemove", throttledMouseMove);
-
-    return () => {
-      document.removeEventListener("mousemove", throttledMouseMove);
-    };
+    // Check if popup has been closed before
+    const hasClosedPopup = localStorage.getItem('hasClosedPopup');
+    if (!hasClosedPopup) {
+      setIsPopupOpen(true);
+    }
   }, []);
+
+  const handleClosePopup = () => {
+    setIsPopupOpen(false);
+    // Store in localStorage that popup has been closed
+    localStorage.setItem('hasClosedPopup', 'true');
+  };
 
   if (isLoading) {
     return <Loading />;
@@ -64,9 +44,6 @@ const Home = () => {
 
   return (
     <>
-      <div id="cursor"></div>
-      <div id="cursor-blur"></div>
-
       <Header />
       <Hero />
       <PhotoSlider />
@@ -76,6 +53,7 @@ const Home = () => {
       <Team />
       <Faq />
       <Footer />
+      <PopUp isOpen={isPopupOpen} onClose={handleClosePopup} />
     </>
   );
 };
