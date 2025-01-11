@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { motion } from "framer-motion";
+import { motion, useScroll } from "framer-motion";
 
 interface EventItem {
     date: string;
@@ -7,7 +7,7 @@ interface EventItem {
     description: string;
 }
 
-const EVENTDATA: EventItem[] = [
+const EVENTS: EventItem[] = [
     {
         date: "31st December 2024",
         title: "Registration Opens",
@@ -40,113 +40,141 @@ const EVENTDATA: EventItem[] = [
     },
 ];
 
-const Timeline: React.FC = () => {
-    const [lineHeight, setLineHeight] = useState(0);
-    const timelineRef = useRef<HTMLDivElement>(null);
+const TimelineItem = ({ event, index, progress, isLargeScreen }: {
+    event: EventItem;
+    index: number;
+    progress: number;
+    isLargeScreen: boolean;
+}) => {
+    const isLeft = index % 2 === 0;
+    const shouldShow = progress >= index / EVENTS.length;
 
-    useEffect(() => {
-        const handleScroll = () => {
-            if (timelineRef.current) {
-                const { top, height } = timelineRef.current.getBoundingClientRect();
-                const windowHeight = window.innerHeight;
-                const scrollPosition = Math.max(0, windowHeight - top);
-                const progress = Math.min(scrollPosition / (height + 200), 1);
-                setLineHeight(height * progress);
-            }
-        };
+    const contentClasses = `
+        w-full 
+        ${isLargeScreen
+            ? `lg:w-1/2 ${isLeft ? 'lg:pr-12' : 'lg:pl-12'}`
+            : 'pl-8'
+        }
+    `;
 
-        window.addEventListener("scroll", handleScroll, { passive: true });
-        handleScroll();
-        return () => window.removeEventListener("scroll", handleScroll);
-    }, []);
+    const linePosition = isLargeScreen
+        ? "lg:left-1/2 lg:-translate-x-1/2"
+        : "left-4";
 
     return (
-        <div id="timeline" className="min-h-screen bg-black p-8">
-            <div className="max-w-6xl mx-auto">
+        <motion.div
+            className={`relative flex flex-col ${isLargeScreen ? `lg:flex-row ${!isLeft && 'lg:flex-row-reverse'}` : ''} items-start mb-12`}
+            initial={{ opacity: 0, x: isLargeScreen ? (isLeft ? -50 : 50) : -30 }}
+            animate={{
+                opacity: shouldShow ? 1 : 0,
+                x: shouldShow ? 0 : (isLargeScreen ? (isLeft ? -50 : 50) : -30)
+            }}
+            transition={{ duration: 0.7, ease: "easeOut" }}
+        >
+            {/* Circle indicator */}
+            <motion.div
+                className={`absolute ${linePosition} w-4 h-4 rounded-full bg-blue-500 
+                           shadow-lg shadow-blue-500/50 z-10`}
+                initial={{ scale: 0 }}
+                animate={{ scale: shouldShow ? 1 : 0 }}
+                transition={{ duration: 0.4 }}
+            >
+                {shouldShow && (
+                    <div
+                        className="absolute w-8 h-8 bg-blue-500/20 rounded-full -left-2 -top-2 animate-ping"
+                        style={{ animationDuration: '3s' }}
+                    />
+                )}
+            </motion.div>
+
+            <div className={contentClasses}>
+                <div className="p-4 sm:p-6 bg-gray-900/50 rounded-lg border border-purple-500/20 
+                             hover:border-purple-500/40 transition-colors duration-300
+                             backdrop-blur-sm hover:backdrop-blur-lg
+                             shadow-lg shadow-purple-500/10 hover:shadow-purple-500/20">
+                    <div className="text-purple-400 text-sm font-medium mb-2">
+                        {event.date}
+                    </div>
+                    <h3 className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 
+                                 bg-clip-text text-transparent mb-2 sm:mb-3">
+                        {event.title}
+                    </h3>
+                    <p className="text-sm sm:text-base text-gray-300/80 leading-relaxed">
+                        {event.description}
+                    </p>
+                </div>
+            </div>
+        </motion.div>
+    );
+};
+
+const Timeline: React.FC = () => {
+    const [isLargeScreen, setIsLargeScreen] = useState(false);
+    const [progress, setProgress] = useState(0);
+    const timelineRef = useRef<HTMLDivElement>(null);
+    const { scrollYProgress } = useScroll({
+        target: timelineRef,
+        offset: ["start end", "end start"]
+    });
+
+    useEffect(() => {
+        const handleResize = () => {
+            setIsLargeScreen(window.innerWidth >= 1024);
+        };
+
+        handleResize();
+        window.addEventListener("resize", handleResize);
+
+        return () => {
+            window.removeEventListener("resize", handleResize);
+        };
+    }, []);
+
+    useEffect(() => {
+        const unsubscribe = scrollYProgress.on("change", (latest) => {
+            setProgress(Math.max(progress, latest));
+        });
+        return () => unsubscribe();
+    }, [scrollYProgress, progress]);
+
+    return (
+        <div id="timeline" className="min-h-screen bg-black overflow-hidden">
+            <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, ease: "easeOut" }}
-                    className="mb-16"
+                    transition={{ duration: 0.8 }}
+                    className="mb-12 sm:mb-16"
                 >
-                    <h1 className="text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-500 via-blue-400 to-purple-500 mb-6">
+                    <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-500 via-blue-400 to-purple-500 mb-4 sm:mb-6">
                         Hackathon Schedule
                     </h1>
-                    <p className="text-purple-300 opacity-80 text-lg max-w-2xl">
+                    <p className="text-purple-300 opacity-80 text-base sm:text-lg max-w-2xl">
                         Follow our carefully planned timeline to stay on track throughout the hackathon.
                         Each phase is designed to help you develop and refine your innovative solutions.
                     </p>
                 </motion.div>
 
                 <div ref={timelineRef} className="relative">
-                    {/* Adjusted line to start at the first circle */}
-                    <motion.div
-                        className="absolute left-1/2 transform -translate-x-1/2 w-1 bg-gradient-to-b from-purple-500 via-blue-500 to-purple-500 rounded-full"
-                        style={{ top: "48px", height: 0 }}
-                        animate={{ height: lineHeight - 48 }}
-                        transition={{ duration: 0.5, ease: "easeInOut" }}
+                    {/* Static vertical line */}
+                    <div
+                        className={`absolute w-1 bg-gradient-to-b from-purple-500 via-blue-500 to-purple-500 rounded-full
+                                  ${isLargeScreen ? 'lg:left-1/2 lg:-translate-x-1/2' : 'left-4'}`}
+                        style={{
+                            top: 0,
+                            height: '100%'
+                        }}
                     />
 
-                    {EVENTDATA.map((event, index) => {
-                        const shouldShow = lineHeight > (index * timelineRef.current?.offsetHeight! / EVENTDATA.length);
-                        const isLeft = index % 2 === 0;
-
-                        return (
-                            <motion.div
-                                key={index}
-                                className={`relative flex items-center mb-8 ${isLeft ? "md:flex-row" : "md:flex-row-reverse"
-                                    }`}
-                                initial={{
-                                    opacity: 0,
-                                    x: isLeft ? -100 : 100
-                                }}
-                                animate={{
-                                    opacity: shouldShow ? 1 : 0,
-                                    x: shouldShow ? 0 : (isLeft ? -100 : 100)
-                                }}
-                                transition={{
-                                    duration: 0.5,
-                                    ease: "easeOut",
-                                    delay: 0.1
-                                }}
-                            >
-                                {/* Circle with line intersection */}
-                                <motion.div
-                                    className={`absolute left-1/2 transform -translate-x-1/2 
-                                              w-4 h-4 rounded-full bg-blue-500 shadow-lg shadow-blue-500/50 z-10
-                                              before:content-[''] before:absolute before:w-8 before:h-8 before:bg-blue-500/20 
-                                              before:rounded-full before:-left-2 before:-top-2 before:animate-ping`}
-                                    initial={{ scale: 0 }}
-                                    animate={{ scale: shouldShow ? 1 : 0 }}
-                                    transition={{
-                                        duration: 0.3,
-                                        type: "spring",
-                                        stiffness: 200,
-                                        damping: 10
-                                    }}
-                                />
-
-                                <div className={`w-full md:w-1/2 ${isLeft ? "md:pr-12" : "md:pl-12"
-                                    }`}>
-                                    <motion.div
-                                        className="p-6 bg-gray-900/50 rounded-lg border border-purple-500/20 
-                                                 hover:border-purple-500/40 transition-all duration-300
-                                                 backdrop-blur-sm hover:backdrop-blur-lg
-                                                 shadow-lg shadow-purple-500/10 hover:shadow-purple-500/20"
-                                        whileHover={{
-                                            scale: 1.02,
-                                            transition: { duration: 0.2 }
-                                        }}
-                                    >
-                                        <div className="text-purple-400 text-sm font-medium mb-2">{event.date}</div>
-                                        <h3 className="text-2xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 
-                                                     bg-clip-text text-transparent mb-3">{event.title}</h3>
-                                        <p className="text-gray-300/80 leading-relaxed">{event.description}</p>
-                                    </motion.div>
-                                </div>
-                            </motion.div>
-                        );
-                    })}
+                    {EVENTS.map((event, index) => (
+                        <TimelineItem
+                            key={index}
+                            event={event}
+                            index={index}
+                            progress={progress}
+                            isLargeScreen={isLargeScreen}
+                        />
+                    ))}
                 </div>
             </div>
         </div>
