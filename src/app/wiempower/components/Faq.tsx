@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { WIEFAQDATA } from "src/constants/index";
 
 interface FAQItem {
@@ -10,6 +10,7 @@ interface FAQItem {
 
 export default function Faq() {
     const [openIndex, setOpenIndex] = useState<number | null>(null);
+    const contentRefs = useRef<Array<HTMLDivElement | null>>([]);
 
     const toggleFAQ = (index: number) => {
         setOpenIndex(openIndex === index ? null : index);
@@ -28,31 +29,43 @@ export default function Faq() {
                         <div
                             key={index}
                             className={`bg-[#0a0a0a] shadow-lg rounded-xl overflow-hidden 
-                                border border-pink-500/20 
-                                ${openIndex === index ? 'border-pink-500/40' : ''}`}
+                                border border-purple-500/20 
+                                ${openIndex === index ? 'border-purple-700/40' : ''}`}
                         >
                             <div
                                 className={`flex justify-between items-center p-4 cursor-pointer 
-                                    ${openIndex === index ? 'bg-pink-500/10' : 'hover:bg-pink-500/5'}`}
+                                    ${openIndex === index ? 'bg-purple-500/10' : 'hover:bg-purple-500/5'}`}
                                 onClick={() => toggleFAQ(index)}
                             >
-                                <h3 className={`text-lg font-medium pr-8
-                                    ${openIndex === index ? 'text-pink-400' : 'text-white'}`}>
+                                <h3
+                                    className={`text-lg font-medium pr-8 text-white ${openIndex === index
+                                        ? 'bg-gradient-to-r from-[#7042f8] to-[#00c6ff] bg-clip-text text-transparent'
+                                        : ''}`}
+                                >
                                     {faq.question}
                                 </h3>
-                                <span className={`text-pink-500 
-                                    ${openIndex === index ? 'rotate-180' : ''}`}>
+                                <span
+                                    className={`text-purple-500 transform transition-transform duration-300 ${openIndex === index ? 'rotate-180' : 'rotate-0'
+                                        }`}
+                                >
                                     ▼
                                 </span>
                             </div>
 
-                            {openIndex === index && (
-                                <div className="bg-gradient-to-b from-pink-500/5 to-transparent p-4">
+                            <div
+                                ref={(el) => { contentRefs.current[index] = el; }}
+                                className={`overflow-hidden transition-all duration-500 ease-in-out 
+                                    ${openIndex === index ? 'max-h-screen opacity-100' : 'max-h-0 opacity-0'}`}
+                                style={{
+                                    maxHeight: openIndex === index ? `${contentRefs.current[index]?.scrollHeight}px` : '0',
+                                }}
+                            >
+                                <div className="p-4 bg-gradient-to-b from-pink-500/5 to-transparent">
                                     <div className="text-gray-300 leading-relaxed">
                                         {faq.answer}
                                     </div>
                                 </div>
-                            )}
+                            </div>
                         </div>
                     ))}
                 </div>

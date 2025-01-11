@@ -61,7 +61,7 @@ const Timeline: React.FC = () => {
     }, []);
 
     return (
-        <div className="min-h-screen bg-black p-8">
+        <div id="timeline" className="min-h-screen bg-black p-8">
             <div className="max-w-6xl mx-auto">
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}

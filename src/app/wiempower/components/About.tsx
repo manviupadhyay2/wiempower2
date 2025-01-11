@@ -1,9 +1,9 @@
 import React from 'react';
-import Wieimage from '@/assets/collegePic/igdtuw_pic.jpg'; // Image import
+import Wieimage from '@/assets/collegePic/igdtuw_pic.jpg';
 
 const About = () => {
   return (
-    <section className="min-h-screen flex items-center justify-center bg-gradient-to-b from-black via-black to-purple-900/20 p-16">
+    <section id='about' className="min-h-screen flex items-center justify-center bg-gradient-to-b from-black via-black to-purple-900/20 p-16">
       <div className="max-w-[90rem] w-full mx-auto flex flex-col lg:flex-row items-center gap-12 lg:gap-24 
         backdrop-blur-sm bg-black/30 p-12 rounded-3xl 
         border border-pink-500/20 shadow-[0_0_80px_-12px_rgba(236,72,153,0.25)]

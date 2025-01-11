@@ -16,7 +16,7 @@ const SpeakerSection = () => {
                     {SPEAKERS.map((speaker, index) => (
                         <div
                             key={index}
-                            className="flex p-6 rounded-lg bg-transparent border border-gray-500 cursor-pointer relative"
+                            className="flex p-6 rounded-lg bg-transparent border border-gray-500 cursor-auto relative"
                         >
                             {/* Speaker Image */}
                             <div className="w-1/3 relative rounded-lg overflow-hidden">
@@ -32,7 +32,7 @@ const SpeakerSection = () => {
 
                             {/* Speaker Info */}
                             <div className="ml-6 w-2/3">
-                                <h3 className="text-2xl font-semibold mb-2 text-white">
+                                <h3 className="text-2xl font-semibold mb-2 text-white flex items-center">
                                     {speaker.name}
                                     {/* LinkedIn Icon after name */}
                                     {speaker.socials.linkedin && (
@@ -53,6 +53,9 @@ const SpeakerSection = () => {
                                     {speaker.description}
                                 </p>
                             </div>
+
+                            {/* Remove cursor interaction and any hover effects */}
+                            <div className="absolute inset-0 rounded-lg pointer-events-none" />
                         </div>
                     ))}
                 </div>

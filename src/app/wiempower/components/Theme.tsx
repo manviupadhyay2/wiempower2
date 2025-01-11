@@ -1,12 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
-import {
-    Heart,
-    Wallet,
-    Leaf,
-    GraduationCap,
-    Users,
-} from "lucide-react";
+import { Heart, Wallet, Leaf, GraduationCap, Users } from "lucide-react";
 
 interface Track {
     icon: React.ElementType;
@@ -18,30 +12,34 @@ const TRACKS_DATA: Track[] = [
     {
         icon: Heart,
         title: "Quantum Exploration",
-        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam non urna nec neque tristique luctus. Integer at purus vitae arcu venenatis facilisis.",
+        description:
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam non urna nec neque tristique luctus. Integer at purus vitae arcu venenatis facilisis.",
     },
     {
         icon: Wallet,
         title: "Digital Frontiers",
-        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed nec enim sit amet erat egestas accumsan a at nunc. Suspendisse sit amet sem ac ante sollicitudin.",
+        description:
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed nec enim sit amet erat egestas accumsan a at nunc. Suspendisse sit amet sem ac ante sollicitudin.",
     },
     {
         icon: Leaf,
         title: "Virtual Horizons",
-        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec convallis purus in nulla placerat, sed auctor purus dignissim. Integer id orci sit amet nisl auctor suscipit.",
+        description:
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec convallis purus in nulla placerat, sed auctor purus dignissim. Integer id orci sit amet nisl auctor suscipit.",
     },
     {
         icon: GraduationCap,
         title: "Innovation Unleashed",
-        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi vitae ligula ac turpis vehicula gravida id sed elit. Nulla facilisi. Mauris bibendum nulla et neque pretium.",
+        description:
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi vitae ligula ac turpis vehicula gravida id sed elit. Nulla facilisi. Mauris bibendum nulla et neque pretium.",
     },
     {
         icon: Users,
         title: "Future Pathways",
-        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam malesuada, lectus eu tincidunt mollis, libero lorem tincidunt erat, id efficitur leo justo at felis.",
+        description:
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam malesuada, lectus eu tincidunt mollis, libero lorem tincidunt erat, id efficitur leo justo at felis.",
     },
 ];
-
 
 interface TrackCardProps {
     track: Track;
@@ -67,30 +65,27 @@ const TrackCard: React.FC<TrackCardProps> = ({ track, index }) => {
 
             <div
                 className="w-16 h-16 rounded-full bg-blue-500/10 flex items-center justify-center
-                    mb-4 group-hover:scale-110 group-hover:animate-pulse transition-transform duration-300"
+                    mb-4 group-hover:scale-110 transition-all duration-300"
             >
-                <track.icon className="w-8 h-8 text-blue-400 group-hover:text-white transition-all duration-300" />
+                <track.icon className="w-8 h-8 text-purple-200 group-hover:text-white transition-colors duration-300" />
             </div>
 
             <h3
-                className="text-xl font-bold text-gray-200 mb-3 group-hover:text-white 
+                className="text-xl font-semibold text-gray-200 mb-3 group-hover:text-white 
                     transition-all duration-300"
             >
                 {track.title}
             </h3>
 
-            <p className="text-gray-400 leading-relaxed group-hover:text-gray-200 
-                transition-all duration-300">
+            {/* Updated description styling */}
+            <p className="text-gray-300 leading-relaxed group-hover:text-gray-100 
+                transition-all duration-300"
+            >
                 {track.description}
             </p>
         </motion.div>
     );
 };
-
-
-
-
-
 
 // Main Theme component
 const Theme: React.FC = () => {
@@ -105,11 +100,11 @@ const Theme: React.FC = () => {
                 >
                     <h2
                         className="text-5xl font-extrabold text-center mb-12 
-                        bg-gradient-to-r from-white via-gray-300 to-white bg-clip-text text-transparent"
+                        bg-gradient-to-r from-white via-gray-300 to-white bg-clip-text text-white"
                     >
                         Hackathon Tracks
                     </h2>
-                    <p className="text-purple-300 opacity-80 text-lg max-w-2xl mx-auto">
+                    <p className="text-white text-lg max-w-2xl mx-auto">
                         Choose from five innovative tracks designed to create meaningful
                         impact across different sectors.
                     </p>

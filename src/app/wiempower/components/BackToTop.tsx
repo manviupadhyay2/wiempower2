@@ -1,39 +1,34 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
+import { FaArrowUp } from "react-icons/fa";
 
 const BackToTop = () => {
     const [isVisible, setIsVisible] = useState(false);
 
-    // Show or hide the button depending on the scroll position
     const handleScroll = () => {
-        if (window.scrollY > 300) {
-            setIsVisible(true);
-        } else {
-            setIsVisible(false);
-        }
+        setIsVisible(window.scrollY > 300);
     };
 
-    // Scroll to the top of the page
     const scrollToTop = () => {
         window.scrollTo({
             top: 0,
-            behavior: 'smooth',
+            behavior: "smooth",
         });
     };
 
-    // Listen for scroll events
     useEffect(() => {
-        window.addEventListener('scroll', handleScroll);
+        window.addEventListener("scroll", handleScroll);
         return () => {
-            window.removeEventListener('scroll', handleScroll);
+            window.removeEventListener("scroll", handleScroll);
         };
     }, []);
 
     return (
         <button
             onClick={scrollToTop}
-            className={`fixed bottom-6 right-6 bg-blue-500 text-white p-3 rounded-full shadow-lg transition-all duration-300 ease-in-out transform ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12 pointer-events-none'}`}
+            className={`fixed bottom-6 right-6 bg-gradient-to-r from-blue-500 to-purple-500 text-white p-4 rounded-full shadow-lg transform transition-all duration-500 ease-out ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12 pointer-events-none"
+                }`}
         >
-            ↑
+            <FaArrowUp size={20} />
         </button>
     );
 };

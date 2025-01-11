@@ -13,6 +13,7 @@ import Faq from './components/Faq';
 import BackToTop from './components/BackToTop';
 import Loading from './Loading';
 import Footer from './components/Footer';
+import Sponsors from './components/Sponsors';
 
 const Wiempower = () => {
     const [loading, setLoading] = useState(true);
@@ -40,6 +41,7 @@ const Wiempower = () => {
                     <Theme />
                     <SpeakerSection />
                     <Judges />
+                    <Sponsors/>
                     <Faq />
                     <Footer/>
                     <BackToTop />
