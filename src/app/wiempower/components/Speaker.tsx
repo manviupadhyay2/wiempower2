@@ -12,13 +12,14 @@ const SpeakerSection = () => {
                 <h2 className="text-center text-3xl font-bold mb-8 text-white">
                     Our Speakers
                 </h2>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+
+                {/* Uncomment the following section to display speaker profiles */}
+                {/* <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
                     {SPEAKERS.map((speaker, index) => (
                         <div
                             key={index}
                             className="flex p-6 rounded-lg bg-transparent border border-gray-500 cursor-auto relative"
                         >
-                            {/* Speaker Image */}
                             <div className="w-1/3 relative rounded-lg overflow-hidden">
                                 <Image
                                     src={speaker.image}
@@ -29,12 +30,9 @@ const SpeakerSection = () => {
                                     className="rounded-lg shadow-md"
                                 />
                             </div>
-
-                            {/* Speaker Info */}
                             <div className="ml-6 w-2/3">
                                 <h3 className="text-2xl font-semibold mb-2 text-white flex items-center">
                                     {speaker.name}
-                                    {/* LinkedIn Icon after name */}
                                     {speaker.socials.linkedin && (
                                         <a
                                             href={speaker.socials.linkedin}
@@ -53,12 +51,15 @@ const SpeakerSection = () => {
                                     {speaker.description}
                                 </p>
                             </div>
-
-                            {/* Remove cursor interaction and any hover effects */}
                             <div className="absolute inset-0 rounded-lg pointer-events-none" />
                         </div>
                     ))}
-                </div>
+                </div> */}
+
+                {/* To be announced message */}
+                <p className="text-lg text-gray-500 mt-4 text-center">
+                    To be announced soon....
+                </p>
             </div>
         </section>
     );

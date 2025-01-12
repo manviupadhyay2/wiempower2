@@ -1,3 +1,5 @@
+'use client';
+
 import React from "react";
 import { motion } from "framer-motion";
 import { Heart, Wallet, Leaf, GraduationCap, Users } from "lucide-react";
@@ -12,33 +14,33 @@ interface Track {
 const TRACKS_DATA: Track[] = [
     {
         icon: Heart,
-        title: "Quantum Exploration",
+        title: "Innovation in Healthcare",
         description:
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam non urna nec neque tristique luctus. Integer at purus vitae arcu venenatis facilisis.",
+            "Develop advanced tech solutions to revolutionize patient care, optimize medical systems, and tackle global health challenges.",
     },
     {
         icon: Wallet,
-        title: "Digital Frontiers",
+        title: "Fintech",
         description:
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed nec enim sit amet erat egestas accumsan a at nunc. Suspendisse sit amet sem ac ante sollicitudin.",
+            "Create secure and accessible tools to transform payments, financial management, and digital banking experiences.",
     },
     {
         icon: Leaf,
-        title: "Virtual Horizons",
+        title: "Sustainable Development Goals",
         description:
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec convallis purus in nulla placerat, sed auctor purus dignissim. Integer id orci sit amet nisl auctor suscipit.",
+            "Innovate eco-friendly technologies to combat climate change, promote clean energy, and drive sustainable growth.",
     },
     {
         icon: GraduationCap,
-        title: "Innovation Unleashed",
+        title: "Bridging Educational Gaps",
         description:
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi vitae ligula ac turpis vehicula gravida id sed elit. Nulla facilisi. Mauris bibendum nulla et neque pretium.",
+            "Build inclusive, scalable platforms to make education more accessible, personalized, and impactful globally.",
     },
     {
         icon: Users,
-        title: "Future Pathways",
+        title: "Open Innovation for Social Good",
         description:
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam malesuada, lectus eu tincidunt mollis, libero lorem tincidunt erat, id efficitur leo justo at felis.",
+            "Design creative solutions to address critical social issues and improve lives through technology-driven impact.",
     },
 ];
 
@@ -47,54 +49,55 @@ interface TrackCardProps {
     index: number;
 }
 
-// Component for each track card with enhanced animation
 const TrackCard: React.FC<TrackCardProps> = ({ track, index }) => {
     return (
         <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{
-                duration: 0.8,
-                delay: index * 0.1,
+                duration: 1,
+                delay: index * 0.2,
                 type: "spring",
                 stiffness: 100,
                 damping: 25,
             }}
-            className="bg-gray-900/50 backdrop-blur-sm p-6 rounded-2xl border-2 border-transparent
-                 group hover:scale-110 hover:shadow-2xl hover:rotate-6
-                 hover:border-transparent hover:transition-all duration-500
-                 flex flex-col items-center text-center group-hover:cursor-pointer
-                 relative overflow-hidden"
+            className="bg-gray-900/60 backdrop-blur-lg p-6 rounded-xl border-2 border-gray-700
+                 hover:scale-105 hover:shadow-2xl hover:rotate-2 hover:border-purple-400 transition-all duration-500
+                 flex flex-col items-center text-center relative overflow-hidden"
         >
-            {/* Gradient Border Animation */}
-            <div className="absolute top-0 left-0 w-full h-full border-2 border-transparent 
-                 group-hover:border-2 group-hover:border-purple-500 transition-all duration-500"></div>
+            {/* Animated Gradient Border */}
+            <div className="absolute inset-0 rounded-xl border-2 border-transparent 
+                group-hover:border-purple-500 transition-all duration-500"></div>
 
+            {/* Icon Section */}
             <motion.div
-                className="w-16 h-16 rounded-full bg-blue-500/10 flex items-center justify-center
-                    mb-4 group-hover:scale-110 transition-all duration-300"
-                whileHover={{ scale: 1.2, rotate: 360, transition: { duration: 0.5 } }}
+                className="w-16 h-16 rounded-full bg-purple-500/20 flex items-center justify-center
+                    mb-4 transition-transform duration-300 group-hover:scale-125"
+                whileHover={{ scale: 1.3, rotate: 360, transition: { duration: 0.5 } }}
             >
-                <track.icon className="w-8 h-8 text-purple-200 group-hover:text-white transition-colors duration-300" />
+                <track.icon className="w-8 h-8 text-purple-300 group-hover:text-white transition-colors duration-300" />
             </motion.div>
 
+            {/* Title */}
             <motion.h3
-                className="text-xl font-semibold text-gray-200 mb-3 group-hover:text-white 
+                className="text-xl font-semibold text-gray-200 mb-3 group-hover:text-purple-100 
                     transition-all duration-300"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.3, duration: 0.5 }}
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: index * 0.2 }}
             >
                 {track.title}
             </motion.h3>
 
-            {/* Updated description styling with fade-in */}
+            <div className="w-16 h-1 bg-[#d8c2ff] mx-auto mb-4 rounded-full"></div>
+
+            {/* Description */}
             <motion.p
-                className="text-gray-300 leading-relaxed group-hover:text-gray-100 
-                transition-all duration-300"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.5, duration: 0.5 }}
+                className="text-gray-300 leading-relaxed group-hover:text-gray-200 
+                transition-colors duration-300"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: index * 0.2 }}
             >
                 {track.description}
             </motion.p>
@@ -102,42 +105,61 @@ const TrackCard: React.FC<TrackCardProps> = ({ track, index }) => {
     );
 };
 
-// Main Theme component with in-view animations
+// Main Theme component
 const Theme: React.FC = () => {
     const { ref, inView } = useInView({
-        triggerOnce: true, // Trigger animation only once when the section comes into view
-        threshold: 0.2, // When 20% of the section is visible
+        triggerOnce: true,
+        threshold: 0.2,
     });
 
     return (
-        <div className="min-h-screen bg-black p-8" ref={ref}>
+        <div className="min-h-screen bg-gradient-to-b from-black via-gray-900 to-black p-8" ref={ref}>
             <div className="max-w-6xl mx-auto">
+                {/* Header Section */}
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: inView ? 1 : 0, y: inView ? 0 : 20 }}
                     transition={{
-                        duration: 1,
+                        duration: 1.5,
                         type: "spring",
-                        stiffness: 100,
+                        stiffness: 120,
                         damping: 30,
                     }}
                     className="mb-16 text-center"
                 >
                     <h2
-                        className="text-5xl font-extrabold text-center mb-12 
-                        bg-gradient-to-r from-white via-gray-300 to-white bg-clip-text text-white"
+                        className="text-5xl font-extrabold mb-8 
+                        bg-gradient-to-r from-purple-400 to-blue-500 bg-clip-text text-transparent"
                     >
                         Hackathon Tracks
                     </h2>
-                    <p className="text-white text-lg max-w-2xl mx-auto">
-                        Choose from five innovative tracks designed to create meaningful
-                        impact across different sectors.
-                    </p>
+                    <motion.p
+                        className="text-gray-200 text-lg max-w-2xl mx-auto"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: inView ? 1 : 0 }}
+                        transition={{ duration: 1, delay: 0.5 }}
+                    >
+                        Choose from five accessible and thoughtfully designed tracks, each aimed at sparking creativity, driving innovation, and tackling real-world challenges.
+                    </motion.p>
                 </motion.div>
 
+                {/* Grid Section */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
                     {TRACKS_DATA.map((track, index) => (
-                        <TrackCard key={index} track={track} index={index} />
+                        <motion.div
+                            key={index}
+                            initial={{ opacity: 0, y: 50 }}
+                            animate={{ opacity: inView ? 1 : 0, y: inView ? 0 : 50 }}
+                            transition={{
+                                duration: 1.5,
+                                delay: index * 0.2,
+                                type: "spring",
+                                stiffness: 120,
+                                damping: 25,
+                            }}
+                        >
+                            <TrackCard track={track} index={index} />
+                        </motion.div>
                     ))}
                 </div>
             </div>
