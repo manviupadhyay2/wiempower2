@@ -54,13 +54,16 @@ import speaker4 from "@/assets/extraPics/admin.jpg"
 import ieeeLogo from "@/assets/logos/white_logo.png"
 import wieLogo from "@/assets/logos/wieLogo.png"
 
-import pastEvent1 from "@/assets/sliderPhotos/event1_img2.jpg"
-import pastEvent2 from "@/assets/sliderPhotos/event1_img2.jpg"
-import pastEvent3 from "@/assets/sliderPhotos/event1_img2.jpg"
-import pastEvent4 from "@/assets/sliderPhotos/event1_img2.jpg"
-import pastEvent5 from "@/assets/sliderPhotos/event1_img2.jpg"
-import pastEvent6 from "@/assets/sliderPhotos/event1_img2.jpg"
-import pastEvent7 from "@/assets/sliderPhotos/event1_img2.jpg"
+import pastEvent1 from "@/assets/pastEventsSlider/pastEvent1.jpg"
+import pastEvent2 from "@/assets/pastEventsSlider/pastEvent2.jpg"
+import pastEvent3 from "@/assets/pastEventsSlider/pastEvent3.jpg"
+import pastEvent4 from "@/assets/pastEventsSlider/pastEvent4.jpg"
+import pastEvent5 from "@/assets/pastEventsSlider/pastEvent5.jpg"
+import pastEvent6 from "@/assets/pastEventsSlider/pastEvent6.jpg"
+import pastEvent7 from "@/assets/pastEventsSlider/pastEvent7.jpg"
+import pastEvent8 from "@/assets/pastEventsSlider/pastEvent8.jpg"
+import pastEvent9 from "@/assets/pastEventsSlider/pastEvent9.jpg"
+import pastEvent10 from "@/assets/pastEventsSlider/pastEvent10.jpg"
 
 
 export const TEAM = [
@@ -464,4 +467,4 @@ export const TIMELINE = [
 
 ]
 
-export const PASTEVENTS = [pastEvent1,pastEvent2,pastEvent3,pastEvent4,pastEvent5,pastEvent6,pastEvent7]
+export const PASTEVENTS = [pastEvent1,pastEvent2,pastEvent3,pastEvent4,pastEvent5,pastEvent6,pastEvent7,pastEvent8,pastEvent9,pastEvent10]

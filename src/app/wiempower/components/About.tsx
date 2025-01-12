@@ -1,6 +1,6 @@
 import React from 'react';
 import { useInView } from 'react-intersection-observer';
-import Wieimage from '@/assets/collegePic/igdtuw_pic.jpg';
+import Wieimage from '@/assets/collegePic/TeamPic.jpg';
 import { motion } from 'framer-motion';
 
 const About = () => {

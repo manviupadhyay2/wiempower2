@@ -167,12 +167,12 @@ const Navbar = () => {
                             About
                         </div>
 
-                        <div
+                        {/* <div
                             onClick={() => handleCustomScroll('events')}
                             className={navLinkClass('events')}
                         >
                             Events
-                        </div>
+                        </div> */}
 
                         <div
                             onClick={() => handleCustomScroll('timeline')}
