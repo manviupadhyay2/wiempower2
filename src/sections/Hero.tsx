@@ -115,7 +115,7 @@ const Hero: React.FC = () => {
         >
           <h1 className="text-5xl font-extrabold text-white md:text-6xl lg:text-7xl">
             Welcome to{' '}
-            <span className="bg-gradient-to-r from-purple-600 to-blue-500 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-purple-400 to-blue-500 bg-clip-text text-transparent">
               IEEE IGDTUW
             </span>
           </h1>
@@ -156,6 +156,7 @@ const Hero: React.FC = () => {
         </motion.div>
       </motion.div>
 
+     
       {/* Stats Section */}
       <div className="absolute bottom-0 left-0 right-0 z-20 bg-black/10 py-10">
         <motion.div

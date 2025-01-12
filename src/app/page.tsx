@@ -12,6 +12,7 @@ import Loading from '@/app/Loading';
 import PopUp from '@/sections/PopUp';
 import Events from '@/sections/Events';
 import PhotoSlider from '@/sections/PhotoSlider';
+import PopupStrip from '@/sections/PopupStrip';
 
 const Home = () => {
   const [isLoading, setIsLoading] = useState(true);

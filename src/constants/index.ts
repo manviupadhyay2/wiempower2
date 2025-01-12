@@ -322,30 +322,30 @@ export const FAQDATA = [
 
 export const WIEFAQDATA = [
   {
-    question: "What benefits do I get as a student member of IEEE?",
-    answer:
-      "Joining IEEE provides numerous benefits, such as access to a vast array of IEEE publications, participation in conferences, networking with professionals in the field, resources for professional development, and discounts on various IEEE products and services.",
+    question: "Is it free to participate in this hackathon?",
+    answer: "Yes, you can register and participate for free.",
   },
   {
-    question: "How can I stay updated on upcoming IEEE events?",
-    answer: "Follow us on Instagram, LinkedIn, and Twitter for the latest updates.",
+    question: "What is the eligibility criteria for participation?",
+    answer:
+      "Teams should consist of 2 to 4 members from the same batch, with at least one female member being mandatory.",
   },
   {
-    question: "Are IEEE events free for members?",
-    answer:
-      "Yes, most events organized by IEEE are free or discounted for members. These events offer great learning and networking opportunities.",
+    question: "Can students from other colleges participate?",
+    answer: "Yes, students from any college are welcome to participate.",
   },
   {
-    question: "What types of conferences and events does IEEE host?",
+    question: "Are non-IGDTUW students allowed to attend on-campus events?",
     answer:
-      "IEEE hosts a wide range of conferences and events globally, covering many technology sectors. You can view upcoming events by visiting the IEEE events calendar.",
+      "Yes, students from other colleges can attend on-campus events, but prior registration is required.",
   },
   {
-    question: "How can I obtain IEEE research papers and publications?",
+    question: "Can we form inter-college teams?",
     answer:
-      "IEEE members can access research papers and publications through the IEEE Xplore digital library. Non-members have the option to purchase individual papers or subscribe to access the library.",
+      "Yes, inter-college teams are allowed as long as they meet the eligibility criteria.",
   },
 ];
+
 export const FOOTERDATA = [
   {
     address: "Indira Gandhi Delhi Technical University for Women, Kashmere Gate, Delhi, India",

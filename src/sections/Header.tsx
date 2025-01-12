@@ -8,6 +8,8 @@ import { Events, scrollSpy, scroller } from "react-scroll";
 import Image from "next/image";
 import { SiX } from 'react-icons/si';
 import { IoClose } from "react-icons/io5";
+import PopUp from './PopUp';
+import PopupStrip from './PopupStrip';
 
 const SOCIALS = [
     {
@@ -138,10 +140,12 @@ const Navbar = () => {
                                                     window.open(url, '_blank');
                                                     setIsSubBarOpen(false);
                                                 }}
-                                                className="w-full px-4 py-2 text-left text-gray-200 hover:bg-[#a855f7] hover:text-white transition-colors"
+                                                className="w-full px-4 py-2 text-left font-bold text-transparent bg-clip-text bg-gradient-to-r from-pink-300 via-purple-300 to-blue-400 hover:bg-[#a855f7] hover:text-white transition-colors"
                                             >
-                                                WIEmpower {version}
+                                                WIEMPOWER {version}
+                                                <span className="ml-2 animate-pulse text-xl">🎉</span>
                                             </button>
+
                                         ))}
                                         <button
                                             onClick={() => handleScroll('past-events')}
@@ -153,9 +157,23 @@ const Navbar = () => {
                                 )}
                             </AnimatePresence>
                         </div>
-                        <button onClick={() => handleScroll('team')} className={navLinkClass('team')}>Team</button>
-                        <Link href="/wiempower" className={navLinkClass('wiempower')}>WIEmpower</Link>
-                        <button onClick={() => handleScroll('contact-us')} className={navLinkClass('contact-us')}>Contact</button>
+                        <button onClick={() => handleScroll('team')} className={navLinkClass('team')}>
+                            Team
+                        </button>
+
+                        <Link
+                            href="/wiempower"
+                            className={`${navLinkClass('wiempower')} font-bold text-transparent bg-clip-text bg-gradient-to-r from-pink-300 via-purple-300 to-blue-400`}
+                        >
+                            WIEMPOWER
+                            <span className="ml-2 animate-pulse text-xl text-yellow-400">🎉</span>
+                        </Link>
+
+                        <button onClick={() => handleScroll('contact-us')} className={navLinkClass('contact-us')}>
+                            Contact
+                        </button>
+
+
                     </div>
                 </div>
 
@@ -209,7 +227,7 @@ const Navbar = () => {
                                             }}
                                             className="text-gray-200 hover:text-[#a855f7] text-left"
                                         >
-                                            WIEmpower {version}
+                                            WIEMPOWER {version}
                                         </button>
                                     ))}
                                     <button
@@ -221,7 +239,14 @@ const Navbar = () => {
                                 </div>
                             )}
                             <button onClick={() => handleScroll('team')} className="text-gray-200 hover:text-[#a855f7] text-left">Team</button>
-                            <Link href="/wiempower" className="text-gray-200 hover:text-[#a855f7]">WIEmpower</Link>
+                            <Link
+                                href="/wiempower"
+                                className="text-gray-200 hover:text-[#a855f7] font-bold text-transparent bg-clip-text bg-gradient-to-r from-pink-300 via-purple-300 to-blue-400 sm:text-lg text-base"
+                            >
+                                WIEMPOWER
+                                <span className="ml-2 animate-pulse text-xl text-yellow-400">🎉</span>
+                            </Link>
+
                             <button onClick={() => handleScroll('contact-us')} className="text-gray-200 hover:text-[#a855f7] text-left">Contact</button>
 
                             <div className="flex justify-center gap-5 mt-4">
@@ -242,7 +267,9 @@ const Navbar = () => {
                     </motion.div>
                 )}
             </AnimatePresence>
+            <PopupStrip />
         </nav>
+
     );
 };
 

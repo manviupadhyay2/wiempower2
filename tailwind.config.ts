@@ -21,22 +21,17 @@ const config: Config = {
     },
     extend: {
       animation: {
-        fadeIn: "fadeIn 1s ease-in",
-        gradient: "gradient 3s ease infinite",
+        gradientText: "gradientText 3s ease infinite", // Add gradient animation
       },
       keyframes: {
-        fadeIn: {
-          "0%": { opacity: "0", transform: "translateY(10px)" },
-          "100%": { opacity: "1", transform: "translateY(0)" },
-        },
-        gradient: {
-          "0%, 100%": {
-            backgroundSize: "200% 200%",
-            backgroundPosition: "left center",
+        gradientText: {
+          "0%": {
+            backgroundPosition: "0% 50%",
+            backgroundImage: "linear-gradient(to right, #6EE7B7, #3B82F6, #9333EA)",
           },
-          "50%": {
-            backgroundSize: "200% 200%",
-            backgroundPosition: "right center",
+          "100%": {
+            backgroundPosition: "100% 50%",
+            backgroundImage: "linear-gradient(to right, #9333EA, #3B82F6, #6EE7B7)",
           },
         },
       },
