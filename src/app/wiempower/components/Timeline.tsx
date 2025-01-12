@@ -18,7 +18,7 @@ interface EventItem {
 const EVENTS: EventItem[] = [
     {
         date: "13th January 2025",
-        endDate: "24th January 2025",
+        endDate: "22th January 2025",
         title: "Registration Opens",
         description: "Begin your journey by registering your team through our online portal. Ensure all team details and areas of interest are properly documented.",
         hasButton: true,
@@ -42,7 +42,7 @@ const EVENTS: EventItem[] = [
         description: "Seek help from mentors and continue developing your project. This phase will be conducted online.",
     },
     {
-        date: "30th January 2025",
+        date: "29th January 2025",
         title: "Development Phase Ends",
         description: "Final submissions of all projects. Ensure your project is complete and ready for presentation.",
     },
