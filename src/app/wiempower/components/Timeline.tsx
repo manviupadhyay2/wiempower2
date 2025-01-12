@@ -1,45 +1,53 @@
 import React, { useEffect, useRef, useState } from "react";
 import { motion, useScroll } from "framer-motion";
-import { FaCalendarAlt } from "react-icons/fa";  // Icons
+import { FaCalendarAlt, FaMapMarkerAlt } from "react-icons/fa";  // Added map icon
 
 // Declare EventItem interface
 interface EventItem {
     date: string;
+    endDate?: string;
     title: string;
     description: string;
+    isOffline?: boolean;
+    location?: string;
 }
 
 // Sample event data
 const EVENTS: EventItem[] = [
     {
-        date: "31st December 2024",
+        date: "13th January 2025",
+        endDate: "24th January 2025",
         title: "Registration Opens",
         description: "Begin your journey by registering your team through our online portal. Ensure all team details and areas of interest are properly documented.",
     },
     {
-        date: "5th January 2025",
+        date: "22nd January 2025",
         title: "Ideation Phase Begins",
         description: "Start brainstorming your innovative solutions. Teams can begin submitting their preliminary project proposals.",
     },
     {
-        date: "7th January 2025",
-        title: "Mentor Matching",
-        description: "Connect with industry experts who will guide you throughout the hackathon. Virtual mentoring sessions become available.",
-    },
-    {
-        date: "9th January 2025",
-        title: "Workshop Day",
-        description: "Participate in technical workshops and gain insights from industry leaders about emerging technologies and best practices.",
-    },
-    {
-        date: "10th January 2025",
-        title: "Registration Closes",
+        date: "24th January 2025",
+        title: "Registration Ends",
         description: "Last day to register your team. Make sure all your team details are finalized and submitted.",
     },
     {
-        date: "11th January 2025",
-        title: "Shortlisting Announced",
-        description: "Selected teams will be notified and will receive detailed instructions for the main hackathon event.",
+        date: "25th January 2025",
+        endDate: "29th January 2025",
+        title: "Development Phase & Mentorship",
+        description: "Connect with mentors and start developing your project. This phase will be conducted offline at IGDTUW.",
+        isOffline: true,
+        location: "https://www.google.com/maps/d/viewer?hl=en&ie=UTF8&t=h&source=embed&msa=0&ll=28.6655361%2C77.23200789999999&spn=0.007995%2C0.009109&z=17&mid=1rQQ1fphljUW4dQvPCGxo6EU_vO4"
+    },
+    {
+        date: "30th January 2025",
+        endDate: "30th January 2025, 9am",
+        title: "Development Phase Ends",
+        description: "Final submissions of all projects. Ensure your project is complete and ready for presentation.",
+    },
+    {
+        date: "31st January 2025",
+        title: "Final Presentation & Results",
+        description: "Teams will present their projects to the judges, followed by the announcement of winners.",
     },
 ];
 
@@ -56,9 +64,10 @@ const TimelineItem = ({ event, index, progress, isLargeScreen }: {
     const contentClasses = `
         w-full 
         ${isLargeScreen
-            ? `lg:w-1/2 ${isLeft ? 'lg:pr-12' : 'lg:pl-12'}`
-            : 'pl-8'
+            ? 'lg:w-1/2'
+            : 'w-full'
         }
+        ${isLargeScreen && isLeft ? 'lg:pr-12' : 'lg:pl-12'}
     `;
 
     const linePosition = isLargeScreen
@@ -67,7 +76,7 @@ const TimelineItem = ({ event, index, progress, isLargeScreen }: {
 
     return (
         <motion.div
-            className={`relative flex flex-col ${isLargeScreen ? `lg:flex-row ${!isLeft && 'lg:flex-row-reverse'}` : ''} items-start mb-12`}
+            className={`relative flex flex-col ${isLargeScreen ? `lg:flex-row ${!isLeft && 'lg:flex-row-reverse'}` : 'pl-8'} items-start mb-12`}
             initial={{ opacity: 0, x: isLargeScreen ? (isLeft ? -50 : 50) : -30 }}
             animate={{ opacity: shouldShow ? 1 : 0, x: shouldShow ? 0 : (isLargeScreen ? (isLeft ? -50 : 50) : -30) }}
             transition={{ duration: 0.7, ease: "easeOut" }}
@@ -90,9 +99,23 @@ const TimelineItem = ({ event, index, progress, isLargeScreen }: {
                              hover:border-purple-500/40 transition-colors duration-300
                              backdrop-blur-sm hover:backdrop-blur-lg
                              shadow-lg shadow-purple-500/10 hover:shadow-purple-500/20">
-                    {/* Highlighted date */}
-                    <div className="text-emerald-400 text-lg font-semibold mb-2">
-                        {event.date}
+                    {/* Highlighted date with conditional end date and map icon */}
+                    <div className="text-emerald-400 text-lg font-semibold mb-2 flex items-center justify-between">
+                        <div>
+                            {event.date}
+                            {event.endDate && ` - ${event.endDate}`}
+                        </div>
+                        {event.isOffline && event.location && (
+                            <a
+                                href={event.location}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="text-blue-400 hover:text-blue-300 transition-colors duration-300 ml-2"
+                                title="View Location"
+                            >
+                                <FaMapMarkerAlt size={20} />
+                            </a>
+                        )}
                     </div>
                     <h3 className="text-xl sm:text-2xl font-bold text-transparent bg-gradient-to-r from-blue-400 to-purple-400 
                                  bg-clip-text text-transparent mb-2 sm:mb-3">
@@ -159,7 +182,7 @@ const Timeline: React.FC = () => {
                                   ${isLargeScreen ? 'lg:left-1/2 lg:-translate-x-1/2' : 'left-4'}`}
                         style={{
                             top: 0,
-                            height: '100%'
+                            height: '100%',
                         }}
                     />
 
