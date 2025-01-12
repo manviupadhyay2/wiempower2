@@ -16,7 +16,7 @@ const PopupStrip = () => {
                         initial={{ x: "100%" }}
                         animate={{ x: "-100%" }}
                         transition={{
-                            duration: 10,
+                            duration: 20,
                             repeat: Infinity,
                             ease: "linear",
                         }}
