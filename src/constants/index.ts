@@ -449,22 +449,5 @@ export const SPEAKERS = [
   },
 ];
 
-export const TIMELINE = [
-  {
-  
-  },
-  {
-  
-  },
-  {
-  
-  },
-
-  {
-  
-  
-  }
-
-]
 
 export const PASTEVENTS = [pastEvent1,pastEvent2,pastEvent3,pastEvent4,pastEvent5,pastEvent6,pastEvent7,pastEvent8,pastEvent9,pastEvent10]

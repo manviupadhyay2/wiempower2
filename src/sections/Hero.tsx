@@ -1,13 +1,14 @@
 'use client';
+
 import React, { useState, useEffect } from 'react';
 import { FaFacebook, FaInstagram, FaLinkedin, FaEnvelope } from 'react-icons/fa';
 import { SiX } from 'react-icons/si';
-import { motion } from 'framer-motion'; 
+import { motion } from 'framer-motion';
 
-const Hero = () => {
-  const [members, setMembers] = useState(0);
-  const [awards, setAwards] = useState(0);
-  const [recognitions, setRecognitions] = useState(0);
+const Hero: React.FC = () => {
+  const [members, setMembers] = useState<number>(0);
+  const [awards, setAwards] = useState<number>(0);
+  const [events, setEvents] = useState<number>(0);
   const iconSize = 32;
 
   useEffect(() => {
@@ -16,81 +17,79 @@ const Hero = () => {
 
   const handleEmailClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
-    const emailTo = "igdtuieee@gmail.com";
-    const ccEmail = "igdtuieee@gmail.com";
-    const subject = encodeURIComponent("Contact from Website");
-    const body = encodeURIComponent("Hello IEEE IGDTUW Team,");
+    const emailTo = 'igdtuieee@gmail.com';
+    const ccEmail = 'igdtuieee@gmail.com';
+    const subject = encodeURIComponent('Contact from Website');
+    const body = encodeURIComponent('Hello IEEE IGDTUW Team,');
     const gmailLink = `https://mail.google.com/mail/?view=cm&fs=1&to=${emailTo}&cc=${ccEmail}&su=${subject}&body=${body}`;
-    const newWindow = window.open(gmailLink, "_blank");
+    const newWindow = window.open(gmailLink, '_blank');
 
     if (!newWindow || newWindow.closed || typeof newWindow.closed === 'undefined') {
-      alert("It seems like the pop-up was blocked. Please allow pop-ups for this site.");
+      alert('It seems like the pop-up was blocked. Please allow pop-ups for this site.');
     }
   };
 
   const startCounting = () => {
     const targetMembers = 230;
     const targetAwards = 30;
-    const targetRecognitions = 50;
+    const targetEvents = 50;
     const duration = 7000;
 
     const memberIntervalTime = duration / targetMembers;
     const awardsIntervalTime = duration / targetAwards;
-    const recognitionIntervalTime = duration / targetRecognitions;
+    const eventsIntervalTime = duration / targetEvents;
 
     const memberInterval = setInterval(() => {
-      setMembers(prev => prev < targetMembers ? prev + 1 : prev);
+      setMembers((prev) => (prev < targetMembers ? prev + 1 : prev));
     }, memberIntervalTime);
 
     const awardsInterval = setInterval(() => {
-      setAwards(prev => prev < targetAwards ? prev + 1 : prev);
+      setAwards((prev) => (prev < targetAwards ? prev + 1 : prev));
     }, awardsIntervalTime);
 
-    const recognitionInterval = setInterval(() => {
-      setRecognitions(prev => prev < targetRecognitions ? prev + 1 : prev);
-    }, recognitionIntervalTime);
+    const eventsInterval = setInterval(() => {
+      setEvents((prev) => (prev < targetEvents ? prev + 1 : prev));
+    }, eventsIntervalTime);
 
     return () => {
       clearInterval(memberInterval);
       clearInterval(awardsInterval);
-      clearInterval(recognitionInterval);
+      clearInterval(eventsInterval);
     };
   };
 
   const Socials = [
     {
-      name: "LinkedIn",
+      name: 'LinkedIn',
       icon: <FaLinkedin size={iconSize} color="#ffffff" />,
-      link: "https://www.linkedin.com/company/ieee-igdtuw/",
-      hoverColor: "#0077b5"
+      link: 'https://www.linkedin.com/company/ieee-igdtuw/',
+      hoverColor: '#0077b5',
     },
     {
-      name: "X",
+      name: 'X',
       icon: <SiX size={iconSize} color="#ffffff" />,
-      link: "https://x.com/ieeeigdtuw?t=a_Ruso2b8InVZgRsWA_JIQ&s=09",
-      hoverColor: "#1DA1F2"
+      link: 'https://x.com/ieeeigdtuw?t=a_Ruso2b8InVZgRsWA_JIQ&s=09',
+      hoverColor: '#1DA1F2',
     },
     {
-      name: "Instagram",
+      name: 'Instagram',
       icon: <FaInstagram size={iconSize} color="#ffffff" />,
-      link: "https://www.instagram.com/ieeeigdtuw/?igshid=MzRlODBiNWFlZA%3D%3D",
-      hoverColor: "#E1306C"
+      link: 'https://www.instagram.com/ieeeigdtuw/?igshid=MzRlODBiNWFlZA%3D%3D',
+      hoverColor: '#E1306C',
     },
     {
-      name: "Email",
+      name: 'Email',
       icon: <FaEnvelope size={iconSize} color="#ffffff" />,
-      link: "#",
-      hoverColor: "#d44638",
-      onClick: handleEmailClick
+      link: '#',
+      hoverColor: '#d44638',
+      onClick: handleEmailClick,
     },
   ];
 
   return (
     <div className="relative min-h-screen w-full overflow-hidden bg-black">
       {/* Background Image with Overlay */}
-      <div
-        className="absolute inset-0 bg-[url('https://storage.googleapis.com/prd-mercan-asset/2023/12/182951a6-img_4256-e1701917255923.jpg')] bg-cover bg-center"
-      >
+      <div className="absolute inset-0 bg-[url('https://storage.googleapis.com/prd-mercan-asset/2023/12/182951a6-img_4256-e1701917255923.jpg')] bg-cover bg-center">
         <div className="absolute inset-0 bg-black/80" />
       </div>
 
@@ -120,17 +119,17 @@ const Hero = () => {
           </p>
         </motion.div>
 
-        <motion.div
-          className="mb-8 inline-block border-2 border-gradient-to-r from-purple-600 to-blue-500 px-6 py-2 text-md font-medium text-white rounded-lg bg-gradient-to-r from-purple-600 to-blue-500 bg-opacity-60 transition-all duration-700 ease-in-out"
+        {/* Explore Button */}
+        <motion.button
+          className="mb-8 rounded-lg border-2 border-gradient-to-r from-purple-600 to-blue-500 bg-gradient-to-r from-purple-600 to-blue-500 px-6 py-2 text-md font-medium text-white bg-opacity-60 transition-all duration-700 ease-in-out hover:scale-105"
           initial={{ scale: 0.5, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           transition={{ duration: 1, delay: 0.6 }}
         >
           Explore our student branch
-        </motion.div>
+        </motion.button>
 
-
-        {/* Social Icons in a row */}
+        {/* Social Icons */}
         <motion.div
           className="mb-10 flex justify-center space-x-6"
           initial={{ opacity: 0 }}
@@ -140,8 +139,8 @@ const Hero = () => {
           {Socials.map((social) => (
             <a
               key={social.name}
-              href={social.name === "Email" ? "#" : social.link}
-              target={social.name === "Email" ? "_self" : "_blank"}
+              href={social.name === 'Email' ? '#' : social.link}
+              target={social.name === 'Email' ? '_self' : '_blank'}
               rel="noopener noreferrer"
               onClick={social.onClick}
               className="flex items-center justify-center text-gray-200 hover:text-gray-300"
@@ -168,7 +167,7 @@ const Hero = () => {
           </div>
           <div className="flex flex-col items-center">
             <span className="text-purple-500 text-xl">Events</span>
-            <span className="text-white text-3xl font-bold">{recognitions}+</span>
+            <span className="text-white text-3xl font-bold">{events}+</span>
           </div>
         </motion.div>
       </motion.div>

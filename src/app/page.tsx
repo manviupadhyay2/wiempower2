@@ -5,13 +5,13 @@ import Header from "@/sections/Header";
 import Footer from '@/sections/Footer';
 import Hero from '@/sections/Hero';
 import Faq from '@/sections/Faq';
-import PhotoSlider from '@/sections/PhotoSlider';
 import AboutSb from '@/sections/AboutSb';
 import Team from '@/sections/Team';
 import AimAndMission from '@/sections/AimAndMission';
-import Events from '@/sections/Events';
 import Loading from '@/app/Loading';
 import PopUp from '@/sections/PopUp';
+import Events from '@/sections/Events';
+import PhotoSlider from '@/sections/PhotoSlider';
 
 const Home = () => {
   const [isLoading, setIsLoading] = useState(true);
