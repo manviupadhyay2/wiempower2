@@ -139,7 +139,7 @@ const Navbar = () => {
         <div className="w-full h-[65px] fixed top-0 shadow-lg shadow-[#2A0E61]/50 bg-[#03001417] backdrop-blur-md z-50 px-10">
             <div className="w-full h-full flex flex-row items-center justify-between m-auto px-[10px]">
                 <div
-                    onClick={() => window.location.href = '/'}
+                    onClick={() => window.location.href = '/wiempower2/'}
                     className="h-auto w-auto flex flex-row items-center justify-center cursor-pointer"
                 >
                     <Image
@@ -154,7 +154,7 @@ const Navbar = () => {
                 <div className="hidden md:flex flex-grow items-center justify-center">
                     <div className="flex items-center justify-between w-[700px] h-auto border border-[rgba(112,66,248,0.38)] bg-[#0300145e] px-[20px] py-[10px] rounded-full">
                         <div
-                            onClick={() => window.location.href = '/'} 
+                            onClick={() => window.location.href = './'}
                             className={navLinkClass('home')}
                         >
                             IEEE IGDTUW
