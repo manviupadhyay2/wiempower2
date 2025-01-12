@@ -260,7 +260,7 @@ const Navbar = () => {
                             {[
                                 { text: 'IEEE IGDTUW', action: () => window.location.href = '/' },
                                 { text: 'About', action: () => handleCustomScroll('about') },
-                                { text: 'Events', action: () => handleCustomScroll('events') },
+                                // { text: 'Events', action: () => handleCustomScroll('events') },
                                 { text: 'Timeline', action: () => handleCustomScroll('timeline') },
                                 { text: 'Registration', action: handleRegistrationClick },
                                 { text: 'Contact', action: () => handleCustomScroll('contact') }

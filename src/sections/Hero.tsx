@@ -23,12 +23,9 @@ const Hero: React.FC = () => {
     const ccEmail = 'igdtuieee@gmail.com';
     const subject = encodeURIComponent('Contact from Website');
     const body = encodeURIComponent('Hello IEEE IGDTUW Team,');
-    const gmailLink = `https://mail.google.com/mail/?view=cm&fs=1&to=${emailTo}&cc=${ccEmail}&su=${subject}&body=${body}`;
-    const newWindow = window.open(gmailLink, '_blank');
 
-    if (!newWindow || newWindow.closed || typeof newWindow.closed === 'undefined') {
-      alert('It seems like the pop-up was blocked. Please allow pop-ups for this site.');
-    }
+    const gmailLink = `https://mail.google.com/mail/?view=cm&fs=1&to=${emailTo}&cc=${ccEmail}&su=${subject}&body=${body}`;
+    window.open(gmailLink, '_blank');
   };
 
   const startCounting = () => {
@@ -99,24 +96,24 @@ const Hero: React.FC = () => {
           className="object-cover"
           priority
         />
-        <div className="absolute inset-0 bg-black/80" />
+        <div className="absolute inset-0 bg-black/70" />
       </div>
 
       {/* Content Container */}
       <motion.div
-        className="relative z-10 flex min-h-screen flex-col items-center justify-center px-6 pt-24 text-center"
+        className="relative z-10 flex min-h-screen flex-col items-center justify-center px-6 pt-10 text-center"
         initial={{ opacity: 0, y: -100 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1 }}
       >
         {/* Title Section */}
         <motion.div
-          className="mb-8 space-y-6"
+          className="mb-6 space-y-4"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1, delay: 0.3 }}
         >
-          <h1 className="text-3xl font-extrabold text-white md:text-4xl lg:text-5xl">
+          <h1 className="text-5xl font-extrabold text-white md:text-6xl lg:text-7xl">
             Welcome to{' '}
             <span className="bg-gradient-to-r from-purple-600 to-blue-500 bg-clip-text text-transparent">
               IEEE IGDTUW
@@ -129,9 +126,9 @@ const Hero: React.FC = () => {
 
         {/* Explore Button */}
         <motion.button
-          className="mb-8 rounded-lg border-2 border-gradient-to-r from-purple-600 to-blue-500 bg-gradient-to-r from-purple-600 to-blue-500 px-6 py-2 text-md font-medium text-white bg-opacity-60 transition-all duration-700 ease-in-out hover:scale-105"
-          initial={{ scale: 0.5, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
+          className="mb-10 rounded-lg border-2 border-gradient-to-r from-purple-600 to-blue-500 bg-gradient-to-r from-purple-600 to-blue-500 px-6 py-2 text-md font-medium text-white transition-all duration-700 ease-in-out hover:scale-105"
+          initial={{ scale: 0.7, opacity: 0 }}
+          animate={{ scale: 1.2, opacity: 1 }}
           transition={{ duration: 1, delay: 0.6 }}
         >
           Explore our student branch
@@ -139,7 +136,7 @@ const Hero: React.FC = () => {
 
         {/* Social Icons */}
         <motion.div
-          className="mb-10 flex justify-center space-x-6"
+          className="mb-12 flex justify-center space-x-6"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1, delay: 0.9 }}
@@ -147,38 +144,48 @@ const Hero: React.FC = () => {
           {Socials.map((social) => (
             <a
               key={social.name}
-              href={social.name === 'Email' ? '#' : social.link}
+              href={social.link}
               target={social.name === 'Email' ? '_self' : '_blank'}
               rel="noopener noreferrer"
               onClick={social.onClick}
-              className="flex items-center justify-center text-gray-200 hover:text-gray-300"
+              className="flex items-center justify-center text-gray-200 hover:text-gray-300 hover:scale-110 transition-all duration-300"
             >
               {social.icon}
             </a>
           ))}
         </motion.div>
+      </motion.div>
 
-        {/* Stats Section */}
+      {/* Stats Section */}
+      <div className="absolute bottom-0 left-0 right-0 z-20 bg-black/10 py-10">
         <motion.div
-          className="flex justify-center space-x-12"
+          className="flex justify-between px-8 md:px-24 text-center"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 1, delay: 1.2 }}
+          transition={{ duration: 1, delay: 1.4 }}
         >
-          <div className="flex flex-col items-center">
-            <span className="text-purple-500 text-xl">Members</span>
-            <span className="text-white text-3xl font-bold">{members}+</span>
+          {/* Members */}
+          <div className="flex flex-col items-center space-y-2">
+            <span className="text-purple-500 text-base md:text-4xl">Members</span>
+            <span className="text-white text-lg md:text-3xl font-bold">{members}+</span>
           </div>
-          <div className="flex flex-col items-center">
-            <span className="text-purple-500 text-xl">Awards</span>
-            <span className="text-white text-3xl font-bold">{awards}+</span>
+
+          {/* Awards */}
+          <div className="flex flex-col items-center space-y-2">
+            <span className="text-purple-500 text-base md:text-4xl">Awards</span>
+            <span className="text-white text-lg md:text-3xl font-bold">{awards}+</span>
           </div>
-          <div className="flex flex-col items-center">
-            <span className="text-purple-500 text-xl">Events</span>
-            <span className="text-white text-3xl font-bold">{events}+</span>
+
+          {/* Events */}
+          <div className="flex flex-col items-center space-y-2">
+            <span className="text-purple-500 text-base md:text-4xl">Events</span>
+            <span className="text-white text-lg md:text-3xl font-bold">{events}+</span>
           </div>
         </motion.div>
-      </motion.div>
+      </div>
+
+
+
     </div>
   );
 };
