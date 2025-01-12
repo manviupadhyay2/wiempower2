@@ -1,9 +1,11 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import Image from 'next/image';
 import { FaFacebook, FaInstagram, FaLinkedin, FaEnvelope } from 'react-icons/fa';
 import { SiX } from 'react-icons/si';
 import { motion } from 'framer-motion';
+import bgImage from "@/assets/collegePic/TeamPic.jpg";
 
 const Hero: React.FC = () => {
   const [members, setMembers] = useState<number>(0);
@@ -89,7 +91,14 @@ const Hero: React.FC = () => {
   return (
     <div className="relative min-h-screen w-full overflow-hidden bg-black">
       {/* Background Image with Overlay */}
-      <div className="absolute inset-0 bg-[url('https://storage.googleapis.com/prd-mercan-asset/2023/12/182951a6-img_4256-e1701917255923.jpg')] bg-cover bg-center">
+      <div className="absolute inset-0">
+        <Image
+          src={bgImage}
+          alt="Team Picture"
+          fill
+          className="object-cover"
+          priority
+        />
         <div className="absolute inset-0 bg-black/80" />
       </div>
 
@@ -113,7 +122,6 @@ const Hero: React.FC = () => {
               IEEE IGDTUW
             </span>
           </h1>
-
           <p className="text-lg text-gray-300 md:text-xl">
             Institute of Electrical and Electronics Engineers IGDTUW Student Branch.
           </p>
