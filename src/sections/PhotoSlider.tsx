@@ -10,7 +10,6 @@ import photo5 from "@/assets/sliderPhotos/random_5.jpg";
 import photo6 from "@/assets/sliderPhotos/random_6.jpg";
 import { motion } from 'framer-motion';
 
-
 const PhotoSlider = () => {
     const photos = [photo1, photo2, photo3, photo4, photo5, photo6];
 
