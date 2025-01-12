@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { motion, useScroll } from "framer-motion";
-import { FaCalendarAlt, FaMapMarkerAlt, FaRegFileAlt, FaChalkboardTeacher, FaCode, FaTrophy, FaBuilding } from "react-icons/fa";
+import { FaCalendarAlt, FaMapMarkerAlt, FaRegFileAlt, FaChalkboardTeacher, FaCode, FaTrophy, FaBuilding, FaBullhorn, FaLightbulb } from "react-icons/fa";
 
 interface EventItem {
     date: string;
@@ -26,13 +26,12 @@ const EVENTS: EventItem[] = [
     },
     {
         date: "22nd January 2025",
-        title: "PPT Submission Phase Begins",
+        title: "Ideation Phase Begins",
         description: "Start brainstorming your innovative solutions and submit your preliminary project slides.",
-
     },
     {
         date: "24th January 2025",
-        title: "Registrations & PPT Submissions End",
+        title: "Ideation Phase End",
         description: "Last day to register your team and submit your project slides. Ensure all details are finalized.",
     },
     {
@@ -47,13 +46,18 @@ const EVENTS: EventItem[] = [
         description: "Final submissions of all projects. Ensure your project is complete and ready for presentation.",
     },
     {
+        date: "30th January 2025",
+        title: "Shortlisted Teams Announced",
+        description: "Teams shortlisted for the finals will be announced, and they are required to present their final projects offline at IGDTUW.",
+    },
+    {
         date: "31st January 2025",
         title: "Final Presentations & Results",
-        description: "All teams must appear at the IGDTUW campus to present their projects to the judges.",
+        description: "All shortlisted top teams must appear at the IGDTUW campus to present their projects to the judges and final judgement will be given on the same day.",
         isOffline: true,
         location: "https://www.google.com/maps/d/viewer?hl=en&ie=UTF8&t=h&source=embed&msa=0&ll=28.6655361%2C77.23200789999999&spn=0.007995%2C0.009109&z=17&mid=1rQQ1fphljUW4dQvPCGxo6EU_vO4",
         venue: "Auditorium, IGDTUW",
-        address: "Madrasa Road, Opposite St. James Church, Kashmere Gate, Delhi-110006"
+        address: "Madrasa Road, Opposite St. James Church, Kashmere Gate, Delhi-110006",
     },
 ];
 
@@ -66,24 +70,17 @@ const TimelineItem = ({ event, index, progress, isLargeScreen }: {
     const isLeft = index % 2 === 0;
     const shouldShow = progress >= index / EVENTS.length;
 
-    const contentClasses = `
-        w-full 
-        ${isLargeScreen
-            ? `lg:w-1/2 ${isLeft ? 'lg:pr-12' : 'lg:pl-12'}`
-            : 'pl-8'
-        }
-    `;
+    const contentClasses = `w-full ${isLargeScreen ? `lg:w-1/2 ${isLeft ? 'lg:pr-12' : 'lg:pl-12'}` : 'pl-8'}`;
 
-    const linePosition = isLargeScreen
-        ? "lg:left-1/2 lg:-translate-x-1/2"
-        : "left-4";
+    const linePosition = isLargeScreen ? "lg:left-1/2 lg:-translate-x-1/2" : "left-4";
 
     const icons: { [key: string]: React.ReactNode } = {
-        "Registration Opens": <FaRegFileAlt className="text-blue-400 mr-2" />,
-        "PPT Submission Phase Begins": <FaChalkboardTeacher className="text-green-400 mr-2" />,
-        "Registrations & PPT Submissions End": <FaRegFileAlt className="text-red-400 mr-2" />,
-        "Development Phase & Mentorship": <FaCode className="text-yellow-400 mr-2" />,
+        "Registration Opens": <FaRegFileAlt className="text-pink-400 mr-2" />,
+        "Ideation Phase Begins": <FaChalkboardTeacher className="text-green-400 mr-2" />,
+        "Ideation Phase End": <FaLightbulb className="text-yellow-300 mr-2" />,
+        "Development Phase & Mentorship": <FaCode className="text-red-400 mr-2" />,
         "Development Phase Ends": <FaCode className="text-purple-400 mr-2" />,
+        "Shortlisted Teams Announced": <FaBullhorn className="text-teal-300 mr-4" />,
         "Final Presentations & Results": <FaTrophy className="text-orange-400 mr-2" />,
     };
 
@@ -101,10 +98,7 @@ const TimelineItem = ({ event, index, progress, isLargeScreen }: {
                 transition={{ duration: 0.4 }}
             >
                 {shouldShow && (
-                    <div
-                        className="absolute w-8 h-8 bg-blue-500/20 rounded-full -left-2 -top-2 animate-ping"
-                        style={{ animationDuration: '3s' }}
-                    />
+                    <div className="absolute w-8 h-8 bg-blue-500/20 rounded-full -left-2 -top-2 animate-ping" style={{ animationDuration: '3s' }} />
                 )}
             </motion.div>
 
